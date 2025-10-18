@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services — SHIIDA MediSpa</title>
+  <meta name="description" content="Service menus — SHIIDA MediSpa. View service lists, prices and descriptions. Book online." />
+  <style>
+    /* ===== Variables & Reset ===== */
+    :root{
+      --bg-1: #f8e6ff;      /* page girly purple */
+      --bg-2: #fbe9ff;
+      --accent: #7b2cbf;    /* primary purple */
+      --accent-2: #ff7ab6;  /* pink */
+      --muted: #6b7280;
+      --card: #ffffff;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(17,24,39,0.08);
+      --max-width: 1100px;
+      --flowery: radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.45) 0 8%, transparent 20%),
+                 radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.35) 0 8%, transparent 22%);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+     background: url('images/background.png') repeat center center / cover;
+      color:#111; line-height:1.45;
+      padding-bottom:60px;
+    }
+    a{color:var(--accent); text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* ===== NAVBAR ===== */
+    header{
+      position:sticky; top:0; z-index:1200;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .nav-inner{max-width:var(--max-width);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+    .nav-left{display:flex;align-items:center;gap:12px}
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .brand .logo{
+      width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow)
+    }
+    .brand h1{margin:0;font-size:18px}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:0;cursor:pointer;font-weight:700;
+      box-shadow:0 8px 22px rgba(0,0,0,0.12);
+    }
+    .btn.ghost{background:#fff;color:var(--accent);border:1px solid rgba(0,0,0,0.06)}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff}
+    .btn.small{padding:6px 10px;font-size:14px}
+    /* previous and back are plain links styled as small ghost buttons */
+    .nav-actions a, .nav-actions button{font-weight:700}
+
+    /* ===== Page title ===== */
+    .page-head{padding:28px 0 6px;text-align:center}
+    .page-head h2{margin:6px 0 8px;font-size:28px;font-weight:800}
+    .page-head p{margin:0;color:var(--muted)}
+
+    /* ===== Service group wrapper (cards) ===== */
+    .groups{display:flex;flex-direction:column;gap:18px;padding:18px 0}
+    .group{
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.94));
+      border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative;
+      overflow:hidden;
+      display:flex;flex-direction:column;gap:12px;
+    }
+    /* subtle flowery decorative top edge using CSS */
+    .group::before{
+      content:""; position:absolute;left:0;right:0;top:0;height:48px;
+      background: linear-gradient(90deg, rgba(255,122,182,0.06), rgba(123,44,191,0.06));
+      pointer-events:none;
+    }
+    .group-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .group-head h3{margin:0;font-size:20px;color:var(--accent);font-weight:800}
+    .group-desc{color:var(--muted);font-size:14px;margin-top:4px}
+    .view-btn{margin-left:auto}
+    .view-btn a{display:inline-block}
+
+    /* ===== service list ===== */
+    .service-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+    .service-item{
+      background:linear-gradient(180deg,#fff,#fff);
+      border-radius:12px;padding:12px;border:1px solid rgba(0,0,0,0.04);
+      display:flex;flex-direction:column;gap:6px;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .service-item:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(17,24,39,0.08)}
+    .service-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .service-name{font-weight:700;color:#222}
+    .service-price{font-weight:800;color:var(--accent)}
+    .service-desc{font-size:13px;color:var(--muted)}
+
+    /* responsive single column for items */
+    @media (max-width:980px){
+      .service-list{grid-template-columns:repeat(1,1fr)}
+    }
+
+    /* ===== Book Now under each group ===== */
+    .group-foot{display:flex;align-items:center;justify-content:center;padding-top:8px}
+    .group .book-now{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#fff;border-radius:999px;padding:10px 18px;border:0;font-weight:800;cursor:pointer;
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+    .group .book-now:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(123,44,191,0.18)}
+
+    /* ===== Accordion (mobile-only) =====
+       We'll use .accordion-panel with CSS max-height transitions.
+    */
+    .accordion-panel{overflow:hidden;transition:max-height .42s cubic-bezier(.2,.9,.3,1),opacity .32s ease;padding-top:0}
+    .accordion-collapsed{max-height:0;padding-top:0;opacity:0}
+    .accordion-open{max-height:2000px;opacity:1;padding-top:12px}
+
+    /* We'll toggle .mobile-only to limit accordion behavior */
+    .mobile-only { display:none; } /* buttons that only appear on mobile if needed */
+
+    /* ===== Booking form ===== */
+    #booking{margin:28px auto;padding:22px;border-radius:16px;max-width:840px;background:linear-gradient(180deg,#fff,#fff);box-shadow:var(--shadow)}
+    #booking h3{text-align:center;margin:0 0 8px;color:var(--accent);font-weight:800}
+    .form-grid{display:grid;gap:10px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:14px}
+    .submit-btn{display:block;margin:12px auto 0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:12px 18px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
+    .muted{color:var(--muted)}
+
+    /* ===== Scroll reveal classes ===== */
+    .reveal{opacity:0;transform:translateY(18px);transition:transform .6s cubic-bezier(.2,.9,.3,1),opacity .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* ===== Footer small note ===== */
+    .tiny-note{text-align:center;margin-top:18px;color:var(--muted);font-size:14px}
+
+    /* ===== Dark mode ===== */
+    body.dark{
+      background:linear-gradient(180deg,#0f1220,#07050a); color:#e6eef2;
+    }
+    body.dark header{background:rgba(10,8,16,0.75);border-bottom:1px solid rgba(255,255,255,0.04)}
+    body.dark .group{background:linear-gradient(180deg,#071026,#06111b);border:1px solid rgba(255,255,255,0.03);color:#e6eef2}
+    body.dark .service-item{background:linear-gradient(180deg,#071026,#071026);border:1px solid rgba(255,255,255,0.03)}
+    body.dark input, body.dark select, body.dark textarea{background:transparent;color:#e6eef2;border:1px solid rgba(255,255,255,0.06)}
+    body.dark .group-head h3{color:#ffb4ff}
+    body.dark .service-price{color:#ffb4ff}
+    body.dark .book-now{box-shadow:none}
+    body.dark .btn.ghost{background:#0b1220;color:#e6eef2}
+    body.dark .submit-btn{box-shadow:none}
+    /* Mobile helpers */
+    @media (max-width:768px){
+      .nav-inner{padding:10px 14px}
+      .brand h1{font-size:16px}
+      .group{padding:14px}
+      .page-head h2{font-size:22px}
+      .mobile-only{display:inline-flex}
+      .service-list{grid-template-columns:1fr}
+      .groups{padding:12px 0}
+      /* collapse all lists by default on mobile (we'll enforce via JS) */
+      .accordion-panel{max-height:0;opacity:0}
+    }
+
+    /* ===== Service modals (new) ===== */
+    .modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.6);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal-content{width:100%;max-width:680px;border-radius:14px;background:linear-gradient(180deg,#fff,#fff);padding:18px;box-shadow:var(--shadow);position:relative}
+    .modal-content h4{margin:0 0 6px;color:var(--accent);font-size:20px;font-weight:800}
+    .modal-content .modal-price{font-weight:800;color:var(--accent-2);margin-bottom:8px}
+    .modal-content p{color:var(--muted);font-size:14px;margin-bottom:10px}
+    .modal-close{position:absolute;right:12px;top:12px;font-size:20px;cursor:pointer;color:var(--muted);background:none;border:0}
+    .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+    .modal .book-btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border-radius:999px;padding:10px 14px;border:0;font-weight:800;cursor:pointer}
+    body.dark .modal-content{background:linear-gradient(180deg,#071026,#06111b);color:#e6eef2}
+
+  </style>
+</head>
+<body>
+  <!-- HEADER / NAV -->
+  <header>
+    <div class="nav-inner">
+      <div class="nav-left">
+        <div class="brand" aria-hidden="true">
+          <div class="logo">S</div>
+          <div>
+            <h1>SHIIDA MediSpa</h1>
+            <div style="font-size:12px;color:var(--muted)">2nd Old Fulgrip Road, Kanda</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button id="darkToggle" class="btn small" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <h2 class="reveal">Our Services</h2>
+      <p class="reveal">Tap a group to view full menu and pricing — book directly from each menu.</p>
+    </div>
+
+    <!-- GROUPS -->
+    <div class="groups">
+
+      <!-- SPA PACKAGES -->
+      <section class="group reveal" data-group="spa packages">
+        <div class="group-head">
+          <div>
+            <h3>Spa Packages</h3>
+            <div class="group-desc">Curated packages for full pampering — perfect for special occasions.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-spa"></div>
+
+        <div class="service-list" id="list-spa">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">The Pinnacle of Wellness</div><div class="service-price">¢1000</div></div>
+            <div class="service-desc">A Rejuvenating Ritual that Restores Balance And Vitality Through Healing Essentional Oils And Indulgent Treatments.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">The Premier Touch</div><div class="service-price">¢1300</div></div>
+            <div class="service-desc"> A Luxurious Trio that Restores Firmness, Eases Tension and Targets Early Signs of Aging.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Crowning Moment of Calm</div><div class="service-price">¢700</div></div>
+            <div class="service-desc">Surrender to Serenity With This Deluxe Ritual Crafted to Soothe Cleanse And Restore Inner Balance.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Touch Of Paradise</div><div class="service-price">¢600</div></div>
+            <div class="service-desc"> This Massage Creates a Deep Relaxation and Renewal.It Includes a Deep Tissue Massage, Iconic Foot Detox and Herbal Steam</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name"> The Elite Escape</div><div class="service-price">¢800</div></div>
+            <div class="service-desc">A Tranquil Ritual Of Herbal Infusions And Botanical Care For Hands And Feet, Ending With Deep Warmth to Melt Stress And Restore Harmony.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name"> Purest Indulgence</div><div class="service-price">¢750</div></div>
+            <div class="service-desc">Soothe Your Senses With Warm Aromatic Botanicals And Rhythmic Flow that Melts Tension And Restors Inner Balance</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Spa Packages">Book Now</button>
+        </div>
+      </section>
+
+      <!-- MASSAGE THERAPIES -->
+      <section class="group reveal" data-group="massage">
+        <div class="group-head">
+          <div>
+            <h3>Massage Therapies</h3>
+            <div class="group-desc">From Swedish relaxation to deep tissue and lymphatic therapies.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-massage"></div>
+
+        <div class="service-list" id="list-massage">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Shiida Signature Massage</div><div class="service-price">¢600</div></div>
+            <div class="service-desc">Holistic Ritual Designed to dextofify, balance and restore energy flow.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Swedish Massage</div><div class="service-price">¢400</div></div>
+            <div class="service-desc">Classic relaxation massage to soothe the body.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Deep Tissue Massage</div><div class="service-price">¢400</div></div>
+            <div class="service-desc">Targets deeper knots and muscular tension.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Aromatherapy Massage</div><div class="service-price">¢400</div></div>
+            <div class="service-desc"> A soothing massage using essential oils combined with calming strokes.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Volcanic Healing Stone Massage</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">Warm Volcanic stones used on key points for deeper warmth and release.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Chocolate Delight Massage</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">Surrender to the luxurious warmth and aroma of rich chocolate in this indulgent massage to soothe your senses.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Warm Candle Massage</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">A Gentle Massage using candles from natural oils and butters.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Ultimate Indulgence For Two</div><div class="service-price">¢800</div></div>
+            <div class="service-desc">A luxurious massage experience designed for you and your loved ones to unwind side by side.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Four Hands Harmony</div><div class="service-price">¢1000</div></div>
+            <div class="service-desc">Two Massage Therapist Working Hand in Hand to Provide An Unforgettable Massage Experience.</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Massage Therapies">Book Now</button>
+        </div>
+      </section>
+
+     <!-- Holistic Treatment -->
+      <section class="group reveal" data-group="holistic">
+        <div class="group-head">
+          <div>
+            <h3>Holistic Treatment</h3>
+            <div class="group-desc">Holistic Treatments Targetted At Full Body Wholeness For General Wellness.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-holistic"></div>
+
+        <div class="service-list" id="list-holistic">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Herbal Steam</div><div class="service-price">¢250</div></div>
+            <div class="service-desc">Purifies, Moisturizes, Clears The Sinuses And Relives Congestion To Ease Breathing.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Shirodhara(Head Oil Drip)</div><div class="service-price">¢400</div></div>
+            <div class="service-desc">This Promotes Relaxation By Providing Stress Relief, Improve Sleep Quality And Enhance Mental Clarity.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Abhyanga</div><div class="service-price">¢600</div></div>
+            <div class="service-desc"> It is An Ayurvedic Warm Herbal Oil Massage. It Increases Blood Circukation Especially To The Nerve Endings, Lubrication of Joints And Enhance Deeper Sleep.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Udvarthanam</div><div class="service-price">¢450</div></div>
+            <div class="service-desc"> It is An Ayurvedic Herbal Powder Massage That Exfoliates, Boosts Circukation And Helps Reduce Cellulite For Detox And Skin Renewal.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Alepa Knee</div><div class="service-price">¢300</div></div>
+            <div class="service-desc">It is a Traditional Herbal Application Therapy that Soothes Pain, Reduces Inflammation And Restores Joint Mobility Naturally.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Pinda Swedem</div><div class="service-price">¢450</div></div>
+            <div class="service-desc">An Ancient Aryuvedic Therapy Using Heated Pouches to Provide Relief From Joint Pain, Stiffness, Muscle Tension And Inflammation.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Ionic Foot Detox</div><div class="service-price">¢250</div></div>
+            <div class="service-desc">This Warm Ionic Bath is Designed To Pull Out Toxins And Release Energetic Blockages to Encourage Blood Flow In The Lower Extremities.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service"><div class="service-name">Enema Administration</div><div class="service-price">¢300 -¢500</div></div>
+            <div class="service-desc"> A Therapeutic Method That Promote Bowel Movemment And Colon Cleansing By Introducing Liquid Into The Rectum.It is Commonly Used to Relieve Constipation.</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Holistic">Book Now</button>
+        </div>
+      </section>
+
+
+      <!-- HAND & FOOTCARE -->
+      <section class="group reveal" data-group="hand-foot-care">
+        <div class="group-head">
+          <div>
+            <h3> Hand & Footcare </h3>
+            <div class="group-desc">Manicure, Pedicure, Nail Builders, Gel Extensions and more.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-hand-foot-care"></div>
+
+        <div class="service-list" id="list-hand-foot-care">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Classic Manicure & Gel Polish</div><div class="service-price">¢150</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Classic Pedicure And Gel Polish</div><div class="service-price">¢300</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Classic Pedicure</div><div class="service-price">¢250</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Classic Manicure</div><div class="service-price">¢380</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Organic Pedicure</div><div class="service-price">¢300</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Organic Manicure</div><div class="service-price">¢200</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Gel Manicure</div><div class="service-price">¢160</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Polish Change</div><div class="service-price">¢80</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Polish Removal</div><div class="service-price">¢60</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Acryllic On Natural Nails</div><div class="service-price">¢200</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Acryllic On Extensions -Short </div><div class="service-price">¢250</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Acryllic On Extensions- Medium</div><div class="service-price">¢300</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Acryllic Refill</div><div class="service-price">¢150</div></div>
+          </div>
+         <div class="service-item">
+            <div class="service-row"><div class="service-name">Biab</div><div class="service-price">¢200</div></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Biab Extension</div><div class="service-price">¢250</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Biab French Tip</div><div class="service-price">¢200</div></div>
+          </div>
+         <div class="service-item">
+            <div class="service-row"><div class="service-name">Biab Refill</div><div class="service-price">¢200</div></div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="hand-foot-care">Book Now</button>
+        </div>
+      </section>
+
+      <!-- FACIAL & SKIN CARE -->
+      <section class="group reveal" data-group="facial">
+        <div class="group-head">
+          <div>
+            <h3>Facial & Skin Care</h3>
+            <div class="group-desc">Medical-grade facials and targeted skin protocols.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-facial"></div>
+
+        <div class="service-list" id="list-facial">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Shiida Signature Facial & Foot Massage</div><div class="service-price">¢650</div></div>
+            <div class="service-desc">This Treatment is Tailored To Cleanse, Hydrate, Exfoliate Your Skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Fountain of Youth (Anti-Aging Facial)</div><div class="service-price">¢750</div></div>
+            <div class="service-desc"> This Treatment Repairs, Hydrates, Firms And Reduces Dark Lines And Wrinkles.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Organic Facial</div><div class="service-price">¢450</div></div>
+            <div class="service-desc"> This Healing And Brightening Treatment harmess organic tumeric to Help Even skin tone and luminous finish.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Hydra Facial</div><div class="service-price">¢600</div></div>
+            <div class="service-desc">This Deeply Cleansing And Hydrating Facial Massages The Face.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Skin Consultation</div><div class="service-price">¢150</div></div>
+            <div class="service-desc">Consultation By Experts To Assess and Provide Appropiate Solutions for Your Skin Needs.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Rebalancing Facial</div><div class="service-price">¢450</div></div>
+            <div class="service-desc">This Purifies And Normalizes the Skin And is Perfect for Oily Problematic Skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">OXY-Geneo Facial</div><div class="service-price">¢800</div></div>
+            <div class="service-desc"> This Treatment Gently Exfoliates to restore skin texture through oxygenation and infusion.</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Facial & Skin Care">Book Now</button>
+        </div>
+      </section>
+
+      <!-- BODY TREATMENTS -->
+      <section class="group reveal" data-group="body">
+        <div class="group-head">
+          <div>
+            <h3>Natural & Organic Body Treatments</h3>
+            <div class="group-desc">Natural & Organic Body Treatments Designed Specially For You.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-body"></div>
+
+        <div class="service-list" id="list-body">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Royal Hammam</div><div class="service-price">¢750</div></div>
+            <div class="service-desc">A Bath Ritual Combining Deep Body Cleansing And Massage to Soothe Muscles resulting in Total Relaxation.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Cleopatra Hammam</div><div class="service-price">¢850</div></div>
+            <div class="service-desc">A Royal Moroccan- style steam and cleanse with black soap to clarify, hydrate and refresh your skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Dilka Bath</div><div class="service-price">¢750</div></div>
+            <div class="service-desc">A Luxurious Sudanese beauty Ritual Using A Blend of Natural Herbs And Grains to Exfoliate, Nourish and Perfume Your Skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Nila Hammam</div><div class="service-price">¢800</div></div>
+            <div class="service-desc">An Intense Body Scrub Which Lightens and Even Outs Skin Tone.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Souqla Hammam</div><div class="service-price">¢800</div></div>
+            <div class="service-desc">Removes Dead Skin, Exfoliates, Moisturises and Brightenes the Skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Traditional Hamman</div><div class="service-price">¢650</div></div>
+            <div class="service-desc">A Timeless Bath Ritual  Where Steam Softens The Skin Followed by A Natural Botanical Blend that Detoxifies, Revives and Keeps You Restored.</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Body Treatments">Book Now</button>
+        </div>
+      </section>
+
+      <!-- BODY SCRUB AND WRAP THERAPIES -->
+      <section class="group reveal" data-group="scrub">
+        <div class="group-head">
+          <div>
+            <h3>Body Scrub And Wrap Therapies</h3>
+            <div class="group-desc">Scrubs and Wraps to Enhance the Skin and Provide Contouring.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-scrub"></div>
+
+        <div class="service-list" id="list-scrub">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Shiida Signature Scrub</div><div class="service-price">¢750</div></div>
+            <div class="service-desc">A Golden, Ancient Body Treatment from Polishing And Sloughing of Deed Skin To Smoothen, Moistures and Lighten the Skin For Even Skin Glow.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Cocoa Luxe Renewal And Massage</div><div class="service-price">¢750</div></div>
+            <div class="service-desc">A Blend of Cocoa and Cafe to Exfoliate, Smooth, Hydrate and Awaken Your Skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Polish Me Up + 30 Minutes Massage</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">This Scrub Takes Away Impurities To Reveal Your Skin's Natural Radiance In Minutes.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Henna Bloom</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">An Intense Body Scrub Which Lightens and Even Outs Skin Tone.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Turmeric & Honey Glow Wrap</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">A Healing Wrap Using Tumeric Honey & Yorgurt To Reduce Inflammation And Brighten Skin.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Mineral Sculpt Clay Wrap</div><div class="service-price">¢600</div></div>
+            <div class="service-desc">Mineral Rich Clay Which Draws Out Impurities to Hydrate Deeply And Reduce Inches For A More Sculpted Body.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Activated Charcoal Detox Wrap</div><div class="service-price">¢600</div></div>
+            <div class="service-desc">Activated Charcoal Which Draws Out Deep Seated Toxins, Unclog Pores And Refines Skin Texture.</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Body Scrub And Wrap Therapies">Book Now</button>
+        </div>
+      </section>
+
+      <!-- ROUTINE HEALTH ASSESMENT -->
+      <section class="group reveal" data-group="routine">
+        <div class="group-head">
+          <div>
+            <h3>Routine Health Assessment</h3>
+            <div class="group-desc">Health Assessment That Help Monitor Your Overall Health And Keep Health On Track.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-routine"></div>
+
+        <div class="service-list" id="list-routine">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Medical Consultation</div><div class="service-price">¢300</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Follow-Up Consultation</div><div class="service-price">¢200</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Full Body Bioplasm Scan</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">A Non-Invasive Wellness Scan That Detects Energetic Imbalances, Stress Points And Potential Toxins Using Advanced Bio Resonance Technology</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Full Body Bioplasm Scan Follow-Up</div><div class="service-price">¢300</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Vitamin Tracker</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">Detects Potentional Nutritional And Vitamin Deficiencies In Your Diet.Prevents Over Supplementation And Supports Overall Health.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Prostrate</div><div class="service-price">¢150</div></div>
+            <div class="service-desc">Screening For Prostrate Inflammation, Enlargement or Cancer For Men.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Uric Test Acid</div><div class="service-price">¢50</div></div>
+            <div class="service-desc">Detects High Level of Uric Acid That May Lead To Gout Or Kidney Stones.</div>
+          </div>
+
+        <div class="service-item">
+          <div class="service-row"><div class="service-name">Blood Sugar(Glucose) Test</div><div class="service-price">¢50</div></div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-row"><div class="service-name">Cholesterol Panel</div><div class="service-price">¢50</div></div>
+          <div class="service-desc">Evaluates Heart Risk Disease.</div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-row"><div class="service-name">Malaria Parasite Test </div><div class="service-price">¢70</div></div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-row"><div class="service-name">Pregnancy Test</div><div class="service-price">¢70</div></div>
+        </div>
+      </div>
+
+       <div class="group-foot">
+         <button class="book-now" data-group="Routine Health Assessment">Book Now</button>
+        </div>
+      </section>
+
+
+
+      <!-- WELLNESS THERAPIES -->
+      <section class="group reveal" data-group="wellness">
+        <div class="group-head">
+          <div>
+            <h3>Wellness Therapies</h3>
+            <div class="group-desc">Holistic programs to support mind, body and lifestyle.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-wellness"></div>
+
+        <div class="service-list" id="list-wellness">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Sports Massage</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">Designed for athletes and recovery.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Lymphatic Drainage</div><div class="service-price">¢600</div></div>
+            <div class="service-desc">Gentle detoxifying technique to reduce swelling.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Prenatal Massage</div><div class="service-price">¢450</div></div>
+            <div class="service-desc">Safe and comforting massage for expectant mothers.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Back, Neck & Shoulder Massage</div><div class="service-price">¢300</div></div>
+            <div class="service-desc">A Luxurious Massage Targetting the Upper Body To Release Tension.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Reflex Foot Massage</div><div class="service-price">¢300</div></div>
+            <div class="service-desc">Foot pressure therapy to restore balance.</div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Wood Therapy Massage</div><div class="service-price">¢600</div></div>
+            <div class="service-desc">Breaks Down Cellulite and Fat Deposits. Helps in Contouring The Body</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Wellness Therapies">Book Now</button>
+        </div>
+      </section>
+
+      <!-- Depilation-->
+      <section class="group reveal" data-group="depilation">
+        <div class="group-head">
+          <div>
+            <h3>Depilation</h3>
+            <div class="group-desc">We bring professional depilation to you.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="depilation"></div>
+
+        <div class="service-list" id="list-depilation">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Half Leg</div><div class="service-price">¢140</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Full Leg</div><div class="service-price">¢250</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Bikini Line</div><div class="service-price">¢200</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Brazillian Wax</div><div class="service-price">¢300</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Back Wax</div><div class="service-price">¢250</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Arm Wax</div><div class="service-price">¢180</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Upper Lip Wax</div><div class="service-price">¢80</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Lower Lip Wax</div><div class="service-price">¢80</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Chin Wax</div><div class="service-price">¢100</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Underarms Wax</div><div class="service-price">¢120</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Full Body Wax</div><div class="service-price">¢750</div></div>
+          </div>
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Eyebrow Wax</div><div class="service-price">¢80</div></div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Depilation">Book Now</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAIN MANAGEMENT -->
+      <section class="group reveal" data-group="pain">
+        <div class="group-head">
+          <div>
+            <h3>Pain Management</h3>
+            <div class="group-desc">Expert- Proven Therapies To Reduce And Manage Your Pain Drastically.</div>
+          </div>
+          <div class="view-btn">
+          </div>
+        </div>
+
+        <div class="accordion-panel mobile-only" id="panel-pain"></div>
+
+        <div class="service-list" id="list-pain">
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Therapeutic Massage</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">Promotes Healing, Reduce Stress And Leaves You Feeling Completely Rejuvenated..</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Acunpunture</div><div class="service-price">¢500</div></div>
+            <div class="service-desc">It's a Traditional Chinese Healing  Therapy That Involves Inserting Tin Needles Into Specific Key Points In The Body To Relieve Pain, Reduce Stress And Promotes Overall Wellness.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Acupressure</div><div class="service-price">¢300</div></div>
+            <div class="service-desc">It is a Traditional Chinese Healing Technique That Involves Scrapping The Skin With A Smooth Edge Tool To Improve Circulation And Promote Natural Healing .</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Gua Sha</div><div class="service-price">¢300</div></div>
+            <div class="service-desc">A Luxurious Massage Targetting the Upper Body To Release Tension.</div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-row"><div class="service-name">Dry Cupping</div><div class="service-price">¢300</div></div>
+            <div class="service-desc">It is a Treatment Where Suction Cups Are Placed On The Skin To Improve Blood Circulation,Reduce Muscle Tension And Promote Healing.</div>
+          </div>
+        </div>
+
+        <div class="group-foot">
+          <button class="book-now" data-group="Pain Management">Book Now</button>
+        </div>
+      </section>
+
+
+    <!-- BOOKING FORM -->
+    <section id="booking" aria-labelledby="bookingTitle">
+      <div id="bookingCard">
+        <h3 id="bookingTitle">Book a consultation</h3>
+        <p class="muted" style="text-align:center;margin-top:6px">Choose preferred service, date & time — we'll confirm via phone/WhatsApp.</p>
+
+        <form id="bookingForm" style="margin-top:14px" onsubmit="return handleBooking(event)">
+          <div class="form-grid">
+            <div class="two-col">
+              <div>
+                <label for="bf_name">Full name</label>
+                <input id="bf_name" name="name" type="text" required placeholder="Your full name">
+              </div>
+              <div>
+                <label for="bf_phone">Phone</label>
+                <input id="bf_phone" name="phone" type="tel" required placeholder="+233 55 287 0027">
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="bf_email">Email</label>
+                <input id="bf_email" name="email" type="email" placeholder="you@example.com">
+              </div>
+              <div>
+                <label for="bf_group">Service Group</label>
+                <select id="bf_group" name="serviceGroup" required>
+                  <option value="">Select service group</option>
+                  <option value="Spa Packages">Spa Packages</option>
+                  <option value="Massage Therapies">Massage Therapies</option>
+                  <option value="Facial & Skin Care">Facial & Skin Care</option>
+                  <option value="Body Treatments">Body Treatments</option>
+                  <option value="Wellness Therapies">Wellness Therapies</option>
+                  <option value="Home Service">Home Service</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="bf_date">Preferred date</label>
+                <input id="bf_date" name="date" type="date" required>
+              </div>
+              <div>
+                <label for="bf_time">Preferred time</label>
+                <input id="bf_time" name="time" type="time">
+              </div>
+            </div>
+
+            <div>
+              <label for="bf_msg">Brief of request</label>
+              <textarea id="bf_msg" name="brief" rows="4" placeholder="Any details we should know?"></textarea>
+            </div>
+
+            <div>
+              <button class="submit-btn" type="submit">Send Booking</button>
+            </div>
+
+            <div id="bookingMsg" class="muted" style="text-align:center;margin-top:6px"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div class="tiny-note">© SHIIDA MEDISPA — All rights reserved</div>
+  </main>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // ----- Scroll to section from hash -----
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    const targetGroup = document.querySelector(`.group[data-group="${hash}"]`);
+    if (targetGroup) {
+      targetGroup.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  // ----- Dark mode toggle -----
+  (function () {
+    const btn = document.getElementById("darkToggle");
+    const body = document.body;
+    const saved = localStorage.getItem("shiida-dark");
+    if (saved === "1") body.classList.add("dark");
+
+    function updateIcon() {
+      btn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+    }
+    updateIcon();
+
+    btn.addEventListener("click", () => {
+      const now = body.classList.toggle("dark");
+      localStorage.setItem("shiida-dark", now ? "1" : "0");
+      updateIcon();
+    });
+  })();
+
+  // ----- Scroll reveal -----
+  (function () {
+    const reveals = Array.from(document.querySelectorAll(".reveal"));
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    reveals.forEach((r) => obs.observe(r));
+  })();
+
+  // ----- Booking button scroll & prefill -----
+  (function () {
+    function scrollToBooking(group) {
+      const bfGroup = document.getElementById("bf_group");
+      if (bfGroup && group) {
+        Array.from(bfGroup.options).forEach((opt) => {
+          if (opt.value.toLowerCase() === group.toLowerCase()) opt.selected = true;
+        });
+      }
+      const bookingEl = document.getElementById("booking");
+      if (bookingEl) {
+        bookingEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => document.getElementById("bf_name")?.focus(), 600);
+      }
+    }
+
+    document.querySelectorAll(".book-now").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        scrollToBooking(btn.dataset.group || "");
+      });
+    });
+  })();
+
+  // ----- Booking form fallback -----
+  window.handleBooking = function (e) {
+    e.preventDefault();
+    const f = e.target;
+    const form = new FormData(f);
+    const name = form.get("name") || "";
+    const phone = form.get("phone") || "";
+    const serviceGroup = form.get("serviceGroup") || "";
+    const date = form.get("date") || "";
+    if (!name || !phone || !serviceGroup || !date) {
+      document.getElementById("bookingMsg").textContent =
+        "Please fill name, phone, service group and preferred date.";
+      return false;
+    }
+    const subject = encodeURIComponent("Booking: " + serviceGroup + " — " + name);
+    const body = encodeURIComponent(
+      "Name: " + name +
+      "\nService group: " + serviceGroup +
+      "\nPreferred date/time: " + date + " " + (form.get("time") || "") +
+      "\nPhone: " + phone +
+      "\nEmail: " + (form.get("email") || "") +
+      "\n\nBrief:\n" + (form.get("brief") || "")
+    );
+    const mail =
+      "mailto:shiidamedispa@gmail.com?subject=" + subject + "&body=" + body;
+    window.location.href = mail;
+    document.getElementById(
+      "bookingMsg"
+    ).textContent =
+      "Opening your email client to send the booking — we'll also follow up on WhatsApp.";
+    f.reset && f.reset();
+    return false;
+  };
+
+  // ----- Dynamic per-service modals (added) -----
+  (function(){
+    const serviceItems = document.querySelectorAll(".service-item");
+    let modalCounter = 0;
+
+    function createModal(id, title, price, shortDesc, group) {
+      const modal = document.createElement("div");
+      modal.className = "modal";
+      modal.id = id;
+      modal.innerHTML = `
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="${id}-title">
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+          <h4 id="${id}-title">${title}</h4>
+          <div class="modal-price">${price}</div>
+          <p class="modal-short">${shortDesc}</p>
+          <p class="modal-long">More about ${title}: ${shortDesc} This treatment is delivered by our trained professionals and includes aftercare guidance. Duration and add-ons can be discussed during booking.</p>
+          <div class="modal-actions">
+            <button class="book-btn" type="button">Book this service</button>
+            <button class="btn ghost small modal-close">Close</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      // close handlers
+      modal.querySelectorAll(".modal-close").forEach(btn => {
+        btn.addEventListener("click", ()=> modal.classList.remove("open"));
+      });
+      modal.addEventListener("click", (e)=> { if(e.target === modal) modal.classList.remove("open"); });
+
+      // book button scrolls to booking and prefill serviceGroup and bf_msg
+      modal.querySelector(".book-btn").addEventListener("click", ()=>{
+        const bfGroup = document.getElementById("bf_group");
+        if(bfGroup){
+          Array.from(bfGroup.options).forEach(opt => {
+            if(opt.value.toLowerCase() === group.toLowerCase()) opt.selected = true;
+          });
+        }
+        const bookingEl = document.getElementById("booking");
+        if(bookingEl){
+          bookingEl.scrollIntoView({behavior:"smooth", block:"center"});
+          setTimeout(()=> {
+            document.getElementById("bf_name")?.focus();
+            // prefills brief with service name
+            const bf_msg = document.getElementById("bf_msg");
+            if(bf_msg) bf_msg.value = `I'd like to book: ${title} (${price})`;
+          }, 600);
+        }
+        modal.classList.remove("open");
+      });
+
+      return modal;
+    }
+
+    serviceItems.forEach(item => {
+      const titleEl = item.querySelector(".service-name");
+      const priceEl = item.querySelector(".service-price");
+      const descEl = item.querySelector(".service-desc");
+      const groupEl = item.closest(".group");
+      const groupName = groupEl?.querySelector("h3")?.textContent || "";
+
+      if(!titleEl) return;
+      modalCounter++;
+      const id = `modal-service-${modalCounter}`;
+      const title = titleEl.textContent.trim();
+      const price = priceEl ? priceEl.textContent.trim() : "";
+      const shortDesc = descEl ? descEl.textContent.trim() : "";
+
+      const modal = createModal(id, title, price, shortDesc, groupName);
+
+      // make service item clickable (preserve original styles)
+      item.setAttribute("tabindex","0");
+      item.style.cursor = "pointer";
+      item.dataset.modal = id;
+      const open = ()=> modal.classList.add("open");
+      item.addEventListener("click", open);
+      item.addEventListener("keydown", (e)=> { if(e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }});
+    });
+  })();
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SHIIDA MediSpa — Home</title>
+  <meta name="description" content="SHIIDA MediSpa — Premier clinical spa & wellness sanctuary in Accra. Book facials, massages, body treatments and home service." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+  <style>
+    /* ====== Variables & Reset ====== */
+    :root{
+      --accent:#7b2cbf;
+      --accent-2:#ff7ab6;
+      --muted:#6b7280;
+      --bg:#f8e6ff; /* girly purple */
+      --card:#fbfbfd;
+      --shadow: 0 10px 28px rgba(17,24,39,0.09);
+      --radius:14px;
+      --max-width:1200px;
+      --container-pad:20px;
+      --cta:#0a7766;
+      --white:#ffffff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:url(images/background\ 6.png);
+      color:#fff;
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:var(--accent);text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 var(--container-pad)}
+
+    /* ====== Header / Nav (preserved structure) ====== */
+    header{position:sticky;top:0;z-index:1200;background:transparent;backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,0.04)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;font-size:20px;
+      box-shadow:var(--shadow);
+    }
+    .brand-text{line-height:1;}
+    .brand-text h1{margin:0;font-size:18px;}
+    .brand-text p{margin:0;color:var(--muted);font-size:13px;}
+
+    nav.main-nav{display:flex;gap:18px;align-items:center}
+    nav.main-nav ul{display:flex;gap:14px;align-items:center;list-style:none;margin:0;padding:0}
+    nav.main-nav li{position:relative}
+    nav.main-nav a{padding:8px 10px;color:inherit;border-radius:8px;display:inline-block}
+    nav.main-nav a:hover{background:rgba(0,0,0,0.03)}
+    .cta-book{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;box-shadow:var(--shadow)}
+
+    /* Dark toggle */
+    #darkToggle{background:transparent;border:0;padding:6px 8px;font-size:18px;cursor:pointer;border-radius:8px}
+    #darkToggle:hover{background:rgba(0,0,0,0.04)}
+
+    .dropdown{position:absolute;left:0;top:100%;min-width:280px;background:#fff;color:#000;border-radius:12px;padding:12px;box-shadow:var(--shadow);display:none}
+    li.has-sub:hover > .dropdown, li.has-sub:focus-within > .dropdown{display:block}
+
+    .hamburger{display:none;background:none;border:0;padding:8px;border-radius:8px}
+    .hamburger span{display:block;width:22px;height:2px;background:#222;margin:4px 0;border-radius:2px}
+
+    /* ====== HERO (full-bleed) ====== */
+    .hero-full{
+      position:relative;
+      width:100%;
+      left:50%;
+      right:50%;
+      margin-left:-50vw;
+      margin-right:-50vw;
+      min-height:68vh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+    }
+    .hero-full video{
+      position:absolute;
+      top:0;left:0;
+      width:100vw;
+      height:100%;
+      min-height:68vh;
+      object-fit:cover;
+      z-index:1;
+    }
+    .hero-overlay{
+      position:relative;
+      z-index:12;
+      width:100%;
+      max-width:1100px;
+      padding:40px 20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:18px;
+    }
+    .hero-overlay h1{
+      margin:0;
+      color:var(--white);
+      font-size:44px;
+      font-weight:800;
+      text-shadow:0 10px 30px rgba(0,0,0,0.45);
+      line-height:1.02;
+    }
+    .hero-overlay p.lead{
+      margin:0;
+      color:rgba(255,255,255,0.92);
+      max-width:900px;
+      font-size:16px;
+    }
+
+    .hero-buttons{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
+    .hero-btn{
+      padding:12px 18px;border-radius:999px;border:0;font-weight:700;cursor:pointer;text-decoration:none;
+      display:inline-flex;align-items:center;gap:8px;min-width:160px;justify-content:center;
+      box-shadow:0 8px 22px rgba(0,0,0,0.16);transition:transform .18s ease,opacity .18s ease;
+      z-index:12;
+    }
+    .hero-btn.explore{background:purple;border:1px solid rgba(255,255,255,0.22);color:var(--white)}
+    .hero-btn.book{background:var(--accent);color:#fff}
+    .hero-btn.whatsapp{background:#25D366;color:#fff}
+    .hero-btn:hover{transform:translateY(-4px)}
+
+    @media (max-width:980px){
+      .hero-overlay h1{font-size:34px}
+      .hero-overlay{padding:28px 16px}
+      .hero-btn{padding:10px 14px;min-width:140px}
+    }
+    @media (max-width:520px){
+      .hero-overlay h1{font-size:22px}
+      .hero-buttons{flex-direction:column;gap:10px}
+      .hero-btn{width:70%;min-width:unset}
+    }
+
+    /* ====== Section headings bold & center ====== */
+    section h3, section h2, .hero-overlay h1 { text-align:center; font-weight:800; margin-bottom:12px; }
+    section h3 { font-size:22px; }
+
+    /* ====== SHIIDA Difference ====== */
+    .difference{padding:36px 0 16px;background:#f8f8fb}
+    .diff-grid{display:flex;gap:16px;flex-wrap:wrap}
+    .diff-card{flex:1 1 200px;background:#fff;padding:18px;border-radius:12px;box-shadow:var(--shadow);min-width:180px; color: #000;}
+
+    /* ====== Animated Counters ====== */
+    .stats-band{
+      padding:20px 12px;
+      display:flex;
+      justify-content:center;
+      background:transparent;
+    }
+    .stats-grid{max-width:1100px;width:100%;display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap;padding:12px}
+    .stat{background:var(--card);padding:16px 22px;border-radius:12px;min-width:160px;text-align:center;box-shadow:var(--shadow)}
+    .stat .num{font-size:34px;font-weight:900;color:var(--accent)}
+    .stat .label{font-size:13px;color:var(--muted);margin-top:6px}
+
+    /* ====== Services / Offers (unchanged look) ====== */
+    .services{padding:28px 0;}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service-card{background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow); color: #000;}
+    .service-card h4{margin:8px 0 6px;text-align:center;font-weight:700}
+    .service-meta{font-size:13px;color:var(--muted);text-align:center}
+
+    .offers{padding:28px 0}
+    .offers-slider{display:flex;gap:12px;overflow:auto;padding-bottom:8px}
+    .offer{flex:0 0 500px;background:#fff;border-radius:15px;padding:14px;box-shadow:var(--shadow); color: #000;}
+
+    /* ====== Gallery: JS-driven continuous auto-slide (infinite) ====== */
+    .carousel{position:relative;overflow:hidden;border-radius:12px;margin-top:12px}
+    .carousel-track{display:flex;gap:10px;align-items:center;will-change:transform}
+    .carousel-item{flex:0 0 25%;min-width:25%;height:260px;border-radius:10px;background-size:cover;background-position:center}
+    @media (max-width:980px){ .carousel-item{flex:0 0 33.333%;min-width:33.333%;} }
+    @media (max-width:620px){ .carousel-item{flex:0 0 50%;min-width:50%;height:160px} }
+
+    /* ====== Book Now form (aesthetic & centered) ====== */
+    #book{padding:28px 0}
+    #bookFormWrap{max-width:760px;margin:0 auto}
+    #book form{
+      background:var(--card);
+      padding:50px;
+      border-radius:25px;
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:25px;
+    }
+    #book .two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    input,select,textarea{
+      width:100%;
+      padding:10px;border-radius:5px;border:1px solid rgba(0,0,0,0.08);font-size:11px;
+      background:transparent;
+    }
+    button[type="submit"].cta-book{
+      padding:12px 16px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-weight:800;cursor:pointer;
+      box-shadow:0 10px 28px rgba(123,44,191,0.18);
+    }
+
+    /* ====== Footer & social icons ====== */
+    footer{background:url(images/background\ 8.png);color:#e6eef2;padding:28px 0;margin-top:34px; font-weight: bold;}
+    .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:var(--max-width);margin:0 auto;padding:0 var(--container-pad)}
+    .footer-grid a{color:inherit}
+    .social-row{display:flex;gap:10px;margin-top:10px}
+    .social-btn{
+      width:44px;height:44px;border-radius:999px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;
+      background:#fff;border:0;padding:0;box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    }
+    .social-btn img{width:100%;height:100%;object-fit:cover;display:block}
+    .footer-bottom{padding:12px 20px;text-align:center;color:rgba(230,238,242,0.95);font-size:14px;margin-top:8px}
+
+    /* ====== Floating WhatsApp Button ====== */
+    #whatsappFloat{
+      position:fixed;right:18px;bottom:22px;z-index:1400;background:#25D366;color:#fff;padding:12px 14px;border-radius:999px;
+      display:flex;align-items:center;gap:8px;box-shadow:0 8px 28px rgba(0,0,0,0.18);text-decoration:none;font-weight:700;
+    }
+    #whatsappFloat:hover{transform:translateY(-3px);transition:all .18s ease}
+
+    /* ====== Dark mode overrides (toggled via body.dark) ====== */
+    body.dark{ background: linear-gradient(180deg,#0f1220,#07050a); color:#e6eef2; }
+    body.dark header{background:rgba(10,8,16,0.75);border-bottom:1px solid rgba(255,255,255,0.04)}
+    body.dark footer{background:#04060a;color:#cfe8ff}
+    body.dark .service-card, body.dark .diff-card, body.dark .offer, body.dark .blog-card, body.dark .booking-card, body.dark .stat{ background:#071026; color:#e6eef2; box-shadow:none; border:1px solid rgba(255,255,255,0.03) }
+    body.dark a{color:#ffb4ff}
+    body.dark .hero-overlay h1{color:#fff}
+    body.dark .hero-overlay p.lead{color:rgba(255,255,255,0.9)}
+    body.dark .hero-btn.explore{border-color:rgba(255,255,255,0.12)}
+    body.dark .hero-btn.book{background:var(--accent);color:#fff}
+    body.dark .hero-btn.whatsapp{background:#25D366;color:#fff}
+
+    /* ====== New: nav hover underline & pop animation for sections ====== */
+    nav.main-nav a {
+      position: relative;
+      transition: color .22s, transform .18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    nav.main-nav a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      transform: translateX(-50%);
+      transition: width .25s ease;
+    }
+    nav.main-nav a:hover::after,
+    nav.main-nav a:focus::after {
+      width: 60%;
+    }
+    nav.main-nav a:active { transform: translateY(-2px); }
+
+    /* Make pop-in animation more obvious: translate + scale + opacity with longer duration */
+    main section, .service-card, .diff-card, .offer, .stat {
+      opacity: 0;
+      transform: translateY(28px) scale(.97);
+      transition: opacity .9s cubic-bezier(.2,.9,.2,1), transform .9s cubic-bezier(.2,.9,.2,1);
+      will-change: transform, opacity;
+      transform-origin: center;
+    }
+    main section.show, .service-card.show, .diff-card.show, .offer.show, .stat.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+/* ====== Global Responsive Images ====== */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+/* ====== Uniform responsive aspect ratios ====== */
+.service-card img,
+.offer img,
+.diff-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  aspect-ratio: 4/3; /* keeps gallery even */
+  background-size: cover;
+  background-position: center;
+}
+
+/* ====== Mobile-first improvements ====== */
+@media (max-width: 980px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .offer img { height: 200px; }
+}
+
+@media (max-width: 620px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card img,
+  .offer img { height: 180px; }
+  .carousel-item { aspect-ratio: 1/1; } /* square gallery on small screens */
+}
+    /* ====== Mobile details (collapsible sublinks) ====== */
+    #mobileMenu details {
+      margin-top:8px;
+      border-top:1px solid rgba(0,0,0,0.04);
+      padding-top:8px;
+    }
+    #mobileMenu summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-weight:700;
+      padding:8px 6px;
+      outline:none;
+      color: #000;
+    }
+    #mobileMenu summary::-webkit-details-marker { display: none; }
+    #mobileMenu summary .caret {
+      transition: transform .18s ease;
+      font-size:18px;
+      opacity:.9;
+    }
+    #mobileMenu details[open] summary .caret { transform: rotate(180deg); }
+
+    #mobileMenu .mobile-sublink {
+      display:block;
+      padding:8px 12px;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    /* Mobile-specific: hide main nav and show hamburger */
+    @media (max-width:980px){
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      nav.main-nav ul{display:none}
+      .hamburger{display:inline-flex}
+    }
+    @media (max-width:620px){
+      .services-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+    }
+
+    /* ====== Mobile visibility fix: ensure service cards/sections visible on small screens ====== */
+    @media (max-width:980px){
+      main section, .service-card, .diff-card, .offer, .stat {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="S">
+        </div>
+        <div class="brand-text">
+          <h1>SHIIDA MediSpa</h1>
+          <p  style="color:#fff;">2nd Old Fulgrip Road, Kanda — +233 55 287 0027</p>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <button class="hamburger" id="hambtn" aria-controls="mobileMenu" aria-expanded="false" style="display:none">
+          <span></span><span></span><span></span>
+        </button>
+
+        <ul id="mainMenu">
+          <li><a href="#home">Home</a></li>
+
+          <li class="has-sub" tabindex="0">
+            <a href="about.html">About Us ▾</a>
+            <div class="dropdown" role="menu" aria-hidden="true">
+              <a href="about.html#who-we-are" style="display:block;padding:8px 6px">Who We Are</a>
+              <a href="about.html#shiida-experience" style="display:block;padding:8px 6px">The SHIIDA Difference</a>
+              <a href="about.html#guidelines" style="display:block;padding:8px 6px">Guidelines</a>
+            </div>
+          </li>
+
+          <li class="has-sub" tabindex="0">
+            <a href="#services">Services ▾</a>
+            <div class="dropdown" role="menu" aria-hidden="true">
+              <strong style="display:block;padding:6px 6px">Categories</strong>
+              <a href="services.html#spa" style="display:block;padding:8px 6px">Spa Packages</a>
+              <a href="services.html#massage" style="display:block;padding:8px 6px">Massage Therapies</a>
+              <a href="services.html#facial" style="display:block;padding:8px 6px">Facials & Skin Care</a>
+              <a href="services.html#body" style="display:block;padding:8px 6px">Body Treatments</a>
+              <a href="services.html#scrub" style="display:block;padding:8px 6px">Scrub & Wrap Therapies</a>
+              <a href="services.html#wellness" style="display:block;padding:8px 6px">Wellness Therapies</a>
+              <a href="services.html#hand-foot-care" style="display:block;padding:8px 6px">Hand & Footcare</a>
+              <a href="services.html#depilation" style="display:block;padding:8px 6px">Depilation</a>
+              <a href="services.html#holistic" style="display:block;padding:8px 6px">Holistic Treatment</a>
+              <a href="services.html#pain" style="display:block;padding:8px 6px">Pain Management</a>
+              <a href="services.html#routine" style="display:block;padding:8px 6px">Routine Health Assessment</a>
+            </div>
+          </li>
+
+          <li><a href="#offers">Offers</a></li>
+
+          <!-- UPDATED: Wellness & Blog with dropdown items (requested) -->
+          <li class="has-sub" tabindex="0">
+            <a href="#blog">Wellness & Blog ▾</a>
+            <div class="dropdown" role="menu" aria-hidden="true">
+              <a href="wellness.html#tips" style="display:block;padding:8px 6px">Skin Care Tips and Trends</a>
+              <a href="wellness.html#stress" style="display:block;padding:8px 6px">Stress Management & Self-Care Advice</a>
+              <a href="wellness.html#beauty" style="display:block;padding:8px 6px">Seasonal Beauty & Wellness Routine</a>
+              <a href="wellness.html#testimonial" style="display:block;padding:8px 6px">Testimonials</a>
+            </div>
+          </li>
+
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a class="cta-book" href="https://www.fresha.com/book-now/shiida-medi-spa-eu3f1t04/all-offer?share=true&pId=2515904">Book Now</a></li>
+        </ul>
+
+        <!-- Dark mode toggle (icon) -->
+        <button id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      </nav>
+    </div>
+
+    <!-- mobile menu (collapsible details blocks) -->
+    <div id="mobileMenu" style="display:none;background:rgba(255,255,255,0.98);border-top:1px solid rgba(0,0,0,0.04);padding:12px">
+      <div class="container" style="display:block">
+        <a href="#home" style="display:block;padding:10px 0">Home</a>
+
+        <details>
+          <summary>About <span class="caret">▾</span></summary>
+          <a class="mobile-sublink" href="about.html#who-we-are">Who We Are</a>
+          <a class="mobile-sublink" href="about.html#shiida-experience">The SHIIDA Experience</a>
+          <a class="mobile-sublink" href="about.html#guidelines">Guidelines</a>
+        </details>
+
+        <details>
+          <summary>Services <span class="caret">▾</span></summary>
+          <a class="mobile-sublink" href="services.html#spa">Spa Packages</a>
+          <a class="mobile-sublink" href="services.html#massage">Massage Therapies</a>
+          <a class="mobile-sublink" href="services.html#facial">Facials & Skin Care</a>
+          <a class="mobile-sublink" href="services.html#body">Body Treatments</a>
+          <a class="mobile-sublink" href="services.html#scrub">Scrub & Wrap Therapies</a>
+          <a class="mobile-sublink" href="services.html#wellness">Wellness Therapies</a>
+          <a class="mobile-sublink" href="services.html#hand">Hand & Footcare</a>
+          <a class="mobile-sublink" href="services.html#depilation">Depilation</a>
+          <a class="mobile-sublink" href="services.html#holistic">Holistic Treatment</a>
+          <a class="mobile-sublink" href="services.html#pain">Pain Management</a>
+          <a class="mobile-sublink" href="services.html#routine">Routine Health Assesment</a>
+        </details>
+
+        <details>
+          <summary>Wellness & Blog <span class="caret">▾</span></summary>
+          <a class="mobile-sublink" href="wellness.html#tips">Skin Care Tips and Trends</a>
+          <a class="mobile-sublink" href="wellness.html#stress">Stress Management & Self-Care Advice</a>
+          <a class="mobile-sublink" href="wellness.html#beauty">Seasonal Beauty & Wellness Routine</a>
+          <a class="mobile-sublink" href="wellness.html#testimonial">Testimonials</a>
+        </details>
+
+        <a href="#offers" style="display:block;padding:10px 0">Offers</a>
+        <a href="#gallery" style="display:block;padding:10px 0">Gallery</a>
+        <a href="#contact" style="display:block;padding:10px 0">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO: full-bleed video with centered overlay buttons -->
+  <section class="hero-full" aria-label="Hero video">
+    <video id="headerVideo" muted autoplay loop playsinline poster="https://via.placeholder.com/1600x800?text=Header+Video+Placeholder">
+        <source src="images/intro 2.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-overlay" role="region" aria-label="Welcome message">
+      <h1>Welcome to SHIIDA MediSpa</h1>
+      <p class="lead">A sanctuary of clinically informed treatments and restorative spa therapies — curated for lasting results.</p>
+
+      <div class="hero-buttons">
+        <a class="hero-btn explore" href="#services" aria-label="Explore Our Services">Explore Our Services</a>
+        <a class="hero-btn book" href="#book" aria-label="Book Now">Book Now</a>
+        <a class="hero-btn whatsapp" href="https://wa.me/233552870027" target="_blank" rel="noopener" aria-label="WhatsApp Us">WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="container" id="home">
+    <!-- THE SHIIDA DIFFERENCE -->
+    <section id="difference" class="difference" aria-labelledby="diffTitle" style="background:url(images/background\ 6.png);">
+      <div class="container">
+        <h3 id="diffTitle">The SHIIDA Difference</h3>
+        <div class="diff-grid">
+          <div class="diff-card">
+            <h4 style="margin:0 0 6px">Integrated Care</h4>
+            <p class="muted" style="margin:0">Clinical oversight combined with spa-level pampering for safe, visible results.</p>
+          </div>
+          <div class="diff-card">
+            <h4 style="margin:0 0 6px">Skilled Practitioners</h4>
+            <p class="muted" style="margin:0">Practitioners trained in advanced protocols and therapies.</p>
+          </div>
+          <div class="diff-card">
+            <h4 style="margin:0 0 6px">Proven Menu</h4>
+            <p class="muted" style="margin:0">A curated selection of therapies backed by results and client feedback.</p>
+          </div>
+          <div class="diff-card">
+            <h4 style="margin:0 0 6px">Accessibility</h4>
+            <p class="muted" style="margin:0">Convenient location, flexible scheduling, and home service options.</p>
+          </div>
+          <div class="diff-card">
+            <h4 style="margin:0 0 6px">Reputation</h4>
+            <p class="muted" style="margin:0">Trusted by clients across Accra for consistent quality and care.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAT COUNTERS (animated faster) -->
+    <section class="stats-band" aria-hidden="false">
+      <div class="stats-grid" role="list" aria-label="Statistics">
+        <div class="stat" role="listitem">
+          <div class="num" data-target="10000">0</div>
+          <div class="label">Happy Clients</div>
+        </div>
+
+        <div class="stat" role="listitem">
+          <div class="num" data-target="20">0</div>
+          <div class="label">Therapies</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="services" aria-labelledby="servicesTitle">
+      <h3 id="servicesTitle">Services</h3>
+
+      <div class="services-grid" style="margin-top:14px">
+        <article class="service-card" id="spa">
+          <img src="images/s1.jpg" alt="Spa packages" style="border-radius:8px;margin-bottom:8px">
+          <h4>Spa Packages</h4>
+          <p class="service-meta">Spa Packages curated to elevate your wellness experience to the highest level.</p>
+          <a href="services.html#spa" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="massage">
+          <img src="images/s2.jpg" alt="Massage therapies" style="border-radius:8px;margin-bottom:8px">
+          <h4>Massage Therapies</h4>
+          <p class="service-meta">Swedish, deep tissue, remedial, lymphatic drainage and more.</p>
+          <a href="services.html#massage" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+         <article class="service-card" id="html#hand-foot-care">
+          <img src="images/nails.jpg" alt="Hand-Foot-Care" style="border-radius:8px;margin-bottom:8px">
+          <h4>Hand & Footcare</h4>
+          <p class="service-meta">Manicure, Pedicure, Nail Builders, Gel Extensions and more.</p>
+          <a href="services.html#hand-foot-care" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="facial">
+          <img src="images/facial.jpg" alt="Facial and skin care" style="border-radius:8px;margin-bottom:8px">
+          <h4>Facial & Skin Care</h4>
+          <p class="service-meta">Clinical facials, chemical peels, medical-grade skin protocols.</p>
+          <a href="services.html#facial" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="body">
+          <img src="images/s5.jpg" alt="Body treatments" style="border-radius:8px;margin-bottom:8px">
+          <h4> Natural & Organic Body Treatment</h4>
+          <p class="service-meta">Body sculpt, scrubs, wraps, wood therapy and targeted contouring.</p>
+          <a href="services.html#body" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="scrub">
+          <img src="images/sp3.jpg" alt="SCRUB & WRAP THERAPIES" style="border-radius:8px;margin-bottom:8px">
+          <h4> SCRUB & WRAP THERAPIES</h4>
+          <p class="service-meta">Body sculpt, scrubs, wraps and targeted contouring.</p>
+          <a href="services.html#scrub" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="wellness">
+          <img src="images/s6.jpg" alt="Wellness therapies" style="border-radius:8px;margin-bottom:8px">
+          <h4>Wellness Therapies</h4>
+          <p class="service-meta">Holistic programs, routine health assessments & therapy packages.</p>
+          <a href="services.html#wellness" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="depilation">
+          <img src="images/sp5.jpg" alt="Depilation" style="border-radius:8px;margin-bottom:8px">
+          <h4>Depilation</h4>
+          <p class="service-meta">Professional depilation delivered to you.</p>
+          <a href="services.html#depilation" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="holistic">
+          <img src="images/massage 2.jpg" alt="Holistic Treatment" style="border-radius:8px;margin-bottom:8px">
+          <h4>Holistic Treatment</h4>
+          <p class="service-meta">Holistic Treatment to encourage health, wellness and more.</p>
+          <a href="services.html#holistic" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="pain">
+          <img src="images/space 6.jpg" alt="Pain Management" style="border-radius:8px;margin-bottom:8px">
+          <h4>Pain Management</h4>
+          <p class="service-meta">Reduces stress, pain ,aches and more.</p>
+          <a href="services.html#pain" style="display:inline-block;margin-top:10px" class="view-btn">View & Book →</a>
+        </article>
+
+        <article class="service-card" id="routine">
+          <img src="images/space 9.jpg" alt="Routine Health Management" style="border-radius:8px;margin-bottom:8px">
+          <h4>Routine Health Assessment</h4>
+          <p class="service-meta">Routine health checks to promote overall health and more.</p>
+          <a href="services.html#routine" style="display:inline-block;margin-top:10px" class="view-btn">View & Book  →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- OFFERS -->
+    <section id="offers" class="offers" aria-labelledby="offersTitle">
+      <h3 id="offersTitle">Offers & Packages</h3>
+      <div class="offers-slider" style="margin-top:12px">
+        <div class="offer">
+          <img src="images/offer.jpg" alt="" style="border-radius:8px;margin-bottom:10px">
+          <h4>Pinnacle of Wellness </h4>
+          <p class="muted">A rejuvenating ritual that restores balance and vitality through healing essential oils and indulgent treatement. it includes ionic foot detox, spa classic manicure and pedicure and our shiida signature facial </p>
+          <a href="#book">Book Offer →</a>
+        </div>
+        <div class="offer">
+          <img src="images/home.jpg" alt="" style="border-radius:8px;margin-bottom:10px">
+          <h4>Home Service</h4>
+          <p class="muted">We are always available to serve all your wellness and spa needs at the comfort of your home at affordable prices</p>
+          <a href="#book">Book Offer →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY: continuous auto-slide infinite loop with 8 local images -->
+    <section id="gallery" style="margin-top:22px">
+      <h3>Gallery</h3>
+
+      <div class="carousel" aria-hidden="false" aria-label="Gallery carousel">
+        <div class="carousel-track" aria-hidden="true">
+          <div class="carousel-item" style="background-image:url('images/space\ 1.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space\ 2.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space\ 3.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space 4.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space\ 5.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space\ 6.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space\ 8.jpg')"></div>
+          <div class="carousel-item" style="background-image:url('images/space 9.jpg')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOK NOW -->
+    <section id="book" style="margin-top:28px">
+      <h3>Book a consultation</h3>
+      <p class="muted" style="margin:0 0 10px;text-align:center">Choose preferred service, date & time — we'll confirm via phone/WhatsApp.</p>
+
+      <div id="bookFormWrap">
+        <form id="bookingForm" onsubmit="return handleBooking(event)" novalidate>
+          <div style="display:grid;gap:12px">
+            <div class="two-col">
+              <div class="field">
+                <label for="b_first" class="muted">First name</label>
+                <input id="b_first" name="firstName" required placeholder="First name" />
+              </div>
+              <div class="field">
+                <label for="b_last" class="muted">Other names</label>
+                <input id="b_last" name="otherNames" placeholder="Other names" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="b_service" class="muted">Service group</label>
+              <select id="b_service" name="serviceGroup" required>
+                <option value="">Select preferred service</option>
+                <option>Spa Packages</option>
+                <option>Massage Therapies</option>
+                <option>Facial and Skin Care</option>
+                <option>Body Treatment</option>
+                <option>Home Service</option>
+                <option>Scrub & Wrap Therapies</option>
+                <option>Hand & Footcare</option>
+                <option>Routine Health Assesment</option>
+                <option>Holistic Treatement</option>
+                <option>Pain Management</option>
+              </select>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label for="b_date" class="muted">Preferred date</label>
+                <input id="b_date" type="date" name="date" required />
+              </div>
+              <div class="field">
+                <label for="b_time" class="muted">Preferred time</label>
+                <input id="b_time" type="time" name="time" />
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label for="b_phone" class="muted">Phone</label>
+                <input id="b_phone" name="phone" required placeholder="+233 55 287 0027" />
+              </div>
+              <div class="field">
+                <label for="b_email" class="muted">Email</label>
+                <input id="b_email" name="email" type="email" placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="b_msg" class="muted">Brief of request</label>
+              <textarea id="b_msg" name="brief" rows="3" placeholder="Any details we should know?"></textarea>
+            </div>
+
+            <button type="button" class="cta-book" id="freshaBookBtn">Send Booking</button>
+
+
+
+            <div id="bookingMsg" class="muted" style="margin-top:8px;font-size:13px;text-align:center"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4 style="margin:0 0 8px">SHIIDA MediSpa</h4>
+        <p class="muted" style="margin:0 0 8px">Premier clinical spa & wellness sanctuary in Accra.</p>
+
+        <!-- CONTACT & VISIT (kept) -->
+        <p class="muted" style="margin:8px 0 2px">Contact & Visit</p>
+        <p style="margin:0" class="muted">2nd Old Fulgrip Road, Kanda — Near 37 Military Hospital, Accra, Ghana</p>
+        <p style="margin:0" class="muted">Phone: <a href="tel:+233552870027">+233 55 287 0027</a></p>
+        <p style="margin:0 0 8px" class="muted">Email: <a href="mailto:shiidamedispa@gmail.com">shiidamedispa@gmail.com</a></p>
+      </div>
+
+      <div style="margin-top:10px; border-radius:10px; overflow:hidden;">
+        <iframe
+          src="https://www.google.com/maps?q=Shiida+MediSpa+Accra&output=embed"
+          width="100%"
+          height="180"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div>
+        <h4 style="margin:0 0 8px">Quick Links</h4>
+        <p style="margin:0"><a href="services.html">Services</a></p>
+        <p style="margin: 0;"><a href="about.html">About</a></p>
+        <p style="margin:0"><a href="#offers">Offers</a></p>
+        <p style="margin:0"><a href="wellness.html">Wellness Blog</a></p>
+      </div>
+
+      <div>
+        <h4 style="margin:0 0 8px">Working Hours</h4>
+        <p class="muted" style="margin:0">Mon–Sat: 8:00 AM — 8:00 PM</p>
+        <p class="muted" style="margin:0">Sun: 9:00 AM — 5:00 PM</p>
+      </div>
+
+
+        <div class="social-row" aria-label="Social links">
+          <a class="social-btn" href="https://instagram.com/shiidamedispa" aria-label="Instagram">
+            <img src="images/instagram.jpg" alt="Instagram icon">
+          </a>
+          <a class="social-btn" href="https://facebook.com/shiidamedispa" aria-label="Facebook">
+            <img src="images/facebook.jpg" alt="Facebook icon">
+          </a>
+          <a class="social-btn" href="https://wa.me/233552870027" aria-label="WhatsApp">
+            <img src="images/whatsap.jpg" alt="WhatsApp icon">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- centered copyright under footer -->
+    <div class="footer-bottom">© SHIIDA MEDISPA — All rights reserved</div>
+  </footer>
+
+  <!-- Floating WhatsApp button (always visible) -->
+  <a id="whatsappFloat" href="https://wa.me/233552870027" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬 WhatsApp</a>
+<script>
+(function () {
+  'use strict';
+
+  // Helpers
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  // Run when DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /* ===== Fresha / Book Button ===== */
+    const freshaBtn = document.getElementById('freshaBookBtn');
+    if (freshaBtn) {
+      freshaBtn.addEventListener('click', () => {
+        // open in new tab to avoid navigation issues
+        try {
+          window.open('https://www.fresha.com/book-now/shiida-medi-spa-eu3f1t04/all-offer?share=true&pId=2515904', '_blank', 'noopener');
+        } catch (e) {
+          window.location.href = 'https://www.fresha.com/book-now/shiida-medi-spa-eu3f1t04/all-offer?share=true&pId=2515904';
+        }
+      });
+    }
+
+    /* ===== Responsive Menu: show desktop nav on wide screens, hamburger on small ===== */
+    const hambtn = document.getElementById('hambtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainMenu = document.getElementById('mainMenu');
+
+    function syncMenuState() {
+      // make sure elements exist
+      if (!hambtn || !mobileMenu || !mainMenu) return;
+      if (window.innerWidth <= 980) {
+        hambtn.style.display = 'inline-flex';
+        // hide desktop ul (let CSS handle it normally; set explicit for safety)
+        mainMenu.style.display = 'none';
+      } else {
+        hambtn.style.display = 'none';
+        mobileMenu.style.display = 'none';
+        mainMenu.style.display = ''; // let CSS show default (usually flex)
+        hambtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+    syncMenuState();
+    window.addEventListener('resize', () => {
+      // debounce small resizes
+      clearTimeout(syncMenuState._t);
+      syncMenuState._t = setTimeout(syncMenuState, 90);
+    });
+
+    if (hambtn && mobileMenu) {
+      hambtn.addEventListener('click', () => {
+        const open = mobileMenu.style.display === 'block';
+        mobileMenu.style.display = open ? 'none' : 'block';
+        hambtn.setAttribute('aria-expanded', (!open).toString());
+      });
+    }
+
+    /* ===== Desktop dropdowns (hover + keyboard focus) ===== */
+    $$('.has-sub').forEach(li => {
+      const dd = li.querySelector('.dropdown');
+      if (!dd) return;
+
+      // hover only active on desktop width
+      li.addEventListener('mouseenter', () => {
+        if (window.innerWidth > 980) dd.style.display = 'block';
+      });
+      li.addEventListener('mouseleave', () => {
+        if (window.innerWidth > 980) dd.style.display = 'none';
+      });
+
+      // keyboard accessibility: focus/blur on the LI so keyboard users see menu
+      li.addEventListener('focusin', () => { dd.style.display = 'block'; });
+      li.addEventListener('focusout', () => { dd.style.display = 'none'; });
+    });
+
+    /* ===== Booking handler (mailto fallback) ===== */
+    (function attachBooking() {
+      const form = document.getElementById('bookingForm');
+      window.handleBooking = function (e) {
+        e.preventDefault();
+        const f = e.target;
+        const data = Object.fromEntries(new FormData(f).entries());
+        const msg = document.getElementById('bookingMsg');
+
+        if (!data.firstName || !data.phone || !data.serviceGroup || !data.date) {
+          if (msg) msg.textContent = 'Please fill in your name, phone, service and preferred date.';
+          return false;
+        }
+
+        const subject = encodeURIComponent('Booking: ' + (data.serviceGroup || '') + ' — ' + (data.firstName || ''));
+        const body = encodeURIComponent(
+          'Name: ' + (data.firstName || '') + ' ' + (data.otherNames || '') + '\n' +
+          'Service: ' + (data.serviceGroup || '') + '\n' +
+          'Date: ' + (data.date || '') + ' ' + (data.time || '') + '\n' +
+          'Phone: ' + (data.phone || '') + '\n' +
+          'Email: ' + (data.email || '') + '\n\n' +
+          'Brief:\n' + (data.brief || '')
+        );
+
+        const mail = 'mailto:shiidamedispa@gmail.com?subject=' + subject + '&body=' + body;
+        // try to open mail client; open in same tab (safer) or fallback to window.open
+        try {
+          window.location.href = mail;
+        } catch (err) {
+          window.open(mail, '_blank', 'noopener');
+        }
+        if (msg) msg.textContent = 'Opening your email client to send the booking — or we will contact you via WhatsApp.';
+        f.reset();
+        return false;
+      };
+
+      if (form) form.addEventListener('submit', handleBooking);
+    })();
+
+    /* ===== Dark mode toggle (persist in localStorage) ===== */
+    (function darkMode() {
+      const btn = document.getElementById('darkToggle');
+      const body = document.body;
+      if (!btn) return;
+
+      const pref = localStorage.getItem('shiida-dark');
+      if (pref === '1') body.classList.add('dark');
+
+      function updateIcon() {
+        btn.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
+      }
+      updateIcon();
+
+      btn.addEventListener('click', () => {
+        const nowDark = body.classList.toggle('dark');
+        localStorage.setItem('shiida-dark', nowDark ? '1' : '0');
+        updateIcon();
+      });
+    })();
+
+    /* ===== Stats counter (IntersectionObserver) ===== */
+    (function statsCounter() {
+      const band = document.querySelector('.stats-band');
+      if (!band) return;
+      const nums = band.querySelectorAll('.num');
+      if (!nums.length) return;
+
+      let started = false;
+      function animate(el, target) {
+        const duration = 900;
+        const start = performance.now();
+        function loop(now) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          const cur = Math.floor(eased * target);
+          if (target >= 1000) {
+            el.textContent = Math.floor(cur / 1000) + (cur >= 1000 ? 'K' : '');
+          } else {
+            el.textContent = cur;
+          }
+          if (t < 1) requestAnimationFrame(loop);
+          else {
+            el.textContent = target >= 1000 ? Math.round(target / 1000) + 'K+' : target + '+';
+          }
+        }
+        requestAnimationFrame(loop);
+      }
+
+      const obs = new IntersectionObserver((entries, o) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !started) {
+            started = true;
+            nums.forEach(el => {
+              const t = parseInt(el.getAttribute('data-target') || '0', 10);
+              if (!isNaN(t) && t > 0) animate(el, t);
+            });
+            o.disconnect();
+            break;
+          }
+        }
+      }, { threshold: 0.35 });
+
+      obs.observe(band);
+    })();
+
+    /* ===== Gallery carousel (continuous scroll) ===== */
+    (function galleryCarousel() {
+      const carousel = document.querySelector('.carousel');
+      if (!carousel) return;
+      const track = carousel.querySelector('.carousel-track');
+      if (!track) return;
+      const items = Array.from(track.children);
+      if (!items.length) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // clone items so we can scroll seamlessly
+      items.forEach(n => track.appendChild(n.cloneNode(true)));
+
+      let pxPerSecond = 30;
+      let pos = 0;
+      let lastTs = null;
+      let rafId = null;
+      let halfWidth = 0;
+      let running = !prefersReduced;
+
+      function recalc() {
+        halfWidth = track.scrollWidth / 2;
+      }
+
+      function step(ts) {
+        if (!lastTs) lastTs = ts;
+        const dt = ts - lastTs;
+        lastTs = ts;
+        if (running) {
+          pos += (pxPerSecond * dt) / 1000;
+          if (halfWidth && pos >= halfWidth) pos -= halfWidth;
+          track.style.transform = 'translateX(' + (-pos) + 'px)';
+        }
+        rafId = requestAnimationFrame(step);
+      }
+
+      function pause() { running = false; }
+      function resume() { if (!prefersReduced) running = true; }
+
+      carousel.addEventListener('mouseenter', pause);
+      carousel.addEventListener('mouseleave', resume);
+      carousel.addEventListener('focusin', pause);
+      carousel.addEventListener('focusout', resume);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pause(); else resume();
+        lastTs = null;
+      });
+
+      window.addEventListener('resize', () => { setTimeout(recalc, 110); });
+
+      // init
+      requestAnimationFrame(() => {
+        recalc();
+        if (!prefersReduced) rafId = requestAnimationFrame(step);
+      });
+    })();
+
+    /* ===== Respect reduced-motion for header video ===== */
+    (function respectReducedMotion() {
+      try {
+        const video = document.getElementById('headerVideo');
+        const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (mq && mq.matches && video) {
+          video.pause();
+          video.removeAttribute('autoplay');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+
+    /* ===== Close dropdowns with Escape ===== */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        $$('.dropdown').forEach(d => { d.style.display = 'none'; });
+      }
+    });
+
+    /* ===== Fade-in Scroll Reveal (works on desktop & tablet) ===== */
+    (function scrollReveal() {
+      const revealSelectors = [
+        'header', 'section', '.service-card', '.diff-card', '.offer',
+        '.stat', '.carousel-item', '.hero-overlay', '.hero-buttons', 'footer'
+      ];
+      const nodes = revealSelectors.map(s => Array.from(document.querySelectorAll(s))).flat();
+
+      // filter unique and visible
+      const unique = [...new Set(nodes)].filter(Boolean);
+      if (!unique.length) return;
+
+      // initial inline styles to prevent flash
+      unique.forEach(el => {
+        // don't override if already inline visible
+        const style = el.style;
+        if (!style.opacity) style.opacity = '0';
+        if (!style.transform) style.transform = 'translateY(14px)';
+        style.willChange = 'opacity, transform';
+      });
+
+      const revealObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            el.style.transition = 'opacity .6s ease-out, transform .6s ease-out';
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            // small delay for staggered feel if multiple elements
+            setTimeout(() => {
+              // remove will-change after animation (small delay)
+              el.style.willChange = '';
+            }, 700);
+            obs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+      unique.forEach(el => revealObserver.observe(el));
+    })();
+
+  }); // end DOMContentLoaded
+
+  /* ===== Small fallback for mobile - ensure visible cards if observers never fire ===== */
+  (function mobileFallback() {
+    function ensureMobileShow() {
+      if (window.innerWidth <= 980) {
+        document.querySelectorAll('main section, .service-card, .diff-card, .offer, .stat').forEach(el => {
+          el.classList.add('show');
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+      }
+    }
+    window.addEventListener('load', ensureMobileShow);
+    window.addEventListener('resize', () => setTimeout(ensureMobileShow, 120));
+    ensureMobileShow();
+  })();
+
+})();
+ScrollReveal({
+    reset: true,
+    distance: '60px',
+    duration: 1500,
+    delay: 200,
+    mobile: true   // 👈 important for mobile support
+  });
+  ScrollReveal().reveal('.reveal-up', { origin: 'bottom' });
+  ScrollReveal().reveal('.reveal-left', { origin: 'left' });
+  ScrollReveal().reveal('.reveal-right', { origin: 'right' });
+  ScrollReveal().reveal('.reveal-fade', { opacity: 0 });
+</script>

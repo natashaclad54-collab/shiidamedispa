@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — SHIIDA MediSpa</title>
+  <meta name="description" content="About SHIIDA MediSpa: who we are, the Shiida experience, and spa guidelines." />
+  <style>
+    /* === Palette (matches services page) === */
+    :root{
+      --bg-1: #f8e6ff;
+      --bg-2: #fbe9ff;
+      --accent: #7b2cbf;
+      --accent-2: #ff7ab6;
+      --accent-dark: #4b1766;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(17,24,39,0.08);
+      --max-width: 1100px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    html,body{height:100%;margin:0}
+    body {
+     background: url('images/background.png') repeat center center / cover;
+    }
+
+    a{color:var(--accent)}
+
+    /* header / nav (matching services) */
+    header{position:sticky;top:0;z-index:1200;background: rgba(255,255,255,0.92);backdrop-filter: blur(6px);border-bottom: 1px solid rgba(0,0,0,0.04)}
+    .nav-inner{max-width:var(--max-width);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow)}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:0;cursor:pointer;font-weight:700}
+    .btn.ghost{background:#fff;color:var(--accent);border:1px solid rgba(0,0,0,0.06)}
+    .btn.small{padding:6px 10px;font-size:14px}
+
+    /* hero */
+    .hero{max-width:var(--max-width);margin:28px auto 8px;padding:28px 20px;display:flex;gap:20px;align-items:center}
+    .hero .left{flex:1}
+    .hero h1{margin:0;font-size:32px;color:var(--accent);font-weight:900}
+    .hero p{margin:8px 0 0;color:var(--muted)}
+    .hero .nav-links{display:flex;gap:10px;margin-top:12px}
+    .pill{background:linear-gradient(90deg,rgba(123,44,191,0.08),rgba(255,122,182,0.06));padding:8px 12px;border-radius:999px;font-weight:700;color:var(--accent);text-decoration:none}
+
+    /* layout: single column cards that fill container */
+    .container{max-width:1200px;margin:10px auto;padding:0 20px}
+    .card{background:linear-gradient(180deg,#fff,#fff);padding:28px;border-radius:14px;box-shadow:var(--shadow);margin-bottom:20px;min-height:220px}
+    h2{color:var(--accent);margin-top:0}
+    .muted{color:var(--muted)}
+
+    /* reveal animation for cards */
+    .reveal{opacity:0;transform:translateY(20px) scale(.995);transition:opacity .7s cubic-bezier(.2,.9,.3,1),transform .7s cubic-bezier(.2,.9,.3,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* cinematic modal
+       - stage is the visible panel and will contain the scrollable body
+       - header (cinema-hero) and actions are sticky so they remain readable
+       - uses safe-area fallbacks for mobile browsers and visualViewport in JS
+    */
+    .cinema-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2200;padding: env(safe-area-inset-top,24px) env(safe-area-inset-right,24px) env(safe-area-inset-bottom,24px) env(safe-area-inset-left,24px);background:linear-gradient(180deg, rgba(11,7,21,0.6), rgba(11,7,21,0.72));backdrop-filter: blur(6px)}
+    .cinema-modal.open{display:flex}
+
+    .cinema-stage{
+      background:linear-gradient(180deg,#fff,#fff);
+      width:min(1100px,calc(100% - 48px));
+      border-radius:16px;
+      box-shadow:0 40px 120px rgba(11,7,21,0.36);
+      display:flex;
+      flex-direction:column;
+      max-height:calc(100vh - 48px); /* fallback */
+      overflow:hidden; /* body will scroll inside */
+      -webkit-overflow-scrolling:touch;
+      transform:translateY(24px) scale(.98);
+      opacity:0;
+      animation:cinemaIn .66s cubic-bezier(.2,.9,.3,1) forwards;
+      box-sizing:border-box;
+      outline:none;
+    }
+    @keyframes cinemaIn{to{transform:none;opacity:1}}
+
+    .cinema-hero{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:22px 28px;color:#fff;position:relative;flex:0 0 auto}
+    .cinema-body{padding:18px 22px;overflow:auto;flex:1 1 auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;word-wrap:break-word;min-width:0}
+    .cinema-body h3{margin-top:0}
+    .cinema-close{position:absolute;right:18px;top:18px;background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
+    .cinema-meta{display:flex;gap:12px;align-items:center;margin-top:8px}
+    .cta-row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:10px 16px;border-radius:999px;border:0}
+
+    /* footer inside stage (actions) stays visible while body scrolls */
+    .cinema-actions{padding:14px 20px;border-top:1px solid rgba(0,0,0,0.04);background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent);flex:0 0 auto;display:flex;justify-content:flex-end;gap:12px;position:relative}
+
+    /* footer (dark purple) */
+    footer.site-footer{background:linear-gradient(90deg,var(--accent-dark),var(--accent));color:#fff;padding:26px 20px;margin-top:26px}
+    .footer-inner{max-width:var(--max-width);margin:0 auto;display:flex;gap:20px;align-items:center;justify-content:space-between}
+    .footer-links{display:flex;gap:12px}
+    .footer-links a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+    .footer-links a:hover{background:rgba(255,255,255,0.06)}
+    .footer-center{font-size:14px;opacity:0.95}
+    .socials{display:flex;gap:10px}
+    .socials a{font-size:20px;text-decoration:none}
+
+    /* decorative accents */
+    .accent-line{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin:14px 0}
+
+    /* responsive tweaks */
+    @media (max-width:900px){
+      .hero{padding:18px}
+      .cinema-stage{width:calc(100% - 32px);max-height:calc(100vh - 24px);border-radius:12px}
+      .cinema-hero{padding:16px 18px}
+      .cinema-body{padding:16px 16px}
+      .footer-inner{flex-direction:column;align-items:flex-start;gap:12px}
+      .cinema-close{right:14px;top:14px;font-size:22px}
+    }
+
+    /* dark mode */
+    body.dark{background:linear-gradient(180deg,#0f1220,#07050a);color:#e6eef2}
+    body.dark .card{background:linear-gradient(180deg,#071026,#06111b);border:1px solid rgba(255,255,255,0.03)}
+    body.dark .cinema-stage{background:linear-gradient(180deg,#071026,#06111b);color:#e6eef2}
+    body.dark .cinema-hero{background:linear-gradient(90deg,#4b2b9d,#ff6aa7)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <h1 style="margin:0;font-size:18px">SHIIDA MediSpa</h1>
+          <div style="font-size:12px;color:var(--muted)">2nd Old Fulgrip Road, Kanda</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button id="darkToggle" class="btn small" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="left">
+      <h1>About SHIIDA</h1>
+      <p class="muted">Learn about who we are — tap any of the sections below to open a cinematic write-up with full details.</p>
+      <div class="nav-links">
+        <!-- normalized links/data-targets so modal opens consistently -->
+        <a class="pill" href="about.html#who-we-are" data-target="who-we-are">Who We Are</a>
+        <a class="pill" href="about.html#shiida-experience" data-target="shiida-experience">The Shiida Experience</a>
+        <a class="pill" href="about.html#guidelines" data-target="guidelines">Guidelines</a>
+      </div>
+    </div>
+    <div style="width:220px;height:120px;border-radius:14px;background:linear-gradient(135deg,rgba(123,44,191,0.12),rgba(255,122,182,0.08));box-shadow:var(--shadow)"></div>
+  </div>
+
+  <main class="container">
+    <div class="card reveal" data-reveal-index="0">
+      <h2>Why SHIIDA?</h2>
+      <div class="accent-line" aria-hidden="true"></div>
+      <p class="muted">SHIIDA MediSpa blends clinical excellence with sensory design. We focus on measurable outcomes delivered in a calming, luxurious environment — treatments that both look after your skin and restore your wellbeing.</p>
+    </div>
+
+    <!-- normalized id to match modal keys -->
+    <div class="card reveal" data-reveal-index="1" id="who-we-are">
+      <h2>Who We Are</h2>
+      <div class="accent-line" aria-hidden="true"></div>
+      <p class="muted">Tap below to read the full story.</p>
+      <div style="margin-top:12px"><button class="btn ghost small" data-open="who-we-are">Open "Who We Are"</button></div>
+    </div>
+
+    <div class="card reveal" data-reveal-index="2" id="shiida-experience">
+      <h2>The Shiida Experience</h2>
+      <div class="accent-line" aria-hidden="true"></div>
+      <p class="muted">A signature journey combining clinical steps, restorative touch and considered aftercare.</p>
+      <div style="margin-top:12px"><button class="btn ghost small" data-open="shiida-experience">Open "Shiida Experience"</button></div>
+    </div>
+
+    <div class="card reveal" data-reveal-index="3" id="guidelines">
+      <h2>Guidelines</h2>
+      <div class="accent-line" aria-hidden="true"></div>
+      <p class="muted">Important information to make your visit smooth and safe. Tap to read the full guidelines.</p>
+      <div style="margin-top:12px"><button class="btn ghost small" data-open="guidelines">Open Guidelines</button></div>
+    </div>
+
+    <div class="card reveal" data-reveal-index="4">
+      <h2>Our Team & Experience</h2>
+      <div class="accent-line" aria-hidden="true"></div>
+      <p class="muted">Our therapists and clinicians bring together decades of experience across clinical aesthetics, physiotherapy and hospitality. We prioritise continuous training and maintain tight, expert teams so each guest gets consistent, personalised care.</p>
+      <p class="muted" style="margin-top:12px">We work with a selection of medically-sourced products and follow clear protocols for safety, hygiene and aftercare.</p>
+    </div>
+
+    <div class="card reveal" data-reveal-index="5" id="space-and-cert">
+      <h2>Our Space & Certifications</h2>
+      <div class="accent-line" aria-hidden="true"></div>
+      <p class="muted">Private treatment rooms, dedicated consultation suites and a sterilised equipment workflow. Our clinicians are certified in skin science, massage therapy, First Aid And Healthcare as well As Certified Estheticians. Documentation is available upon request.</p>
+    </div>
+
+  </main>
+
+  <!-- Cinematic modals (inline content) -->
+  <div id="cinema" class="cinema-modal" role="dialog" aria-hidden="true">
+    <div class="cinema-stage" role="document" tabindex="-1">
+      <div class="cinema-hero">
+        <button class="cinema-close" aria-label="Close modal">✕</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+          <div>
+            <h2 id="cinema-title" style="margin:0;color:#fff;font-size:22px"></h2>
+            <div id="cinema-sub" style="opacity:0.92;margin-top:6px;font-weight:600;color:rgba(255,255,255,0.95)"></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:800;color:rgba(255,255,255,0.95)">SHIIDA MediSpa</div>
+            <div style="font-size:12px;opacity:0.95">2nd Old Fulgrip Road, Kanda</div>
+          </div>
+        </div>
+      </div>
+      <div class="cinema-body" id="cinema-body"></div>
+      <div class="cinema-actions">
+        <button class="btn ghost small" id="cinema-close-bottom">Close</button>
+        <a class="btn primary" id="cinema-book" href="services.html#booking">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer with quick links, location & socials -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer quick links">
+        <a href="#who-we-are" data-target="who-we-are">Who We Are</a>
+        <a href="#shiida-experience" data-target="shiida-experience">The Shiida Experience</a>
+        <a href="#guidelines" data-target="guidelines">Guidelines</a>
+        <a href="services.html">Services & Pricing</a>
+      </nav>
+
+      <div class="footer-center">
+        📍 2nd Old Fulgrip Road, Kanda &nbsp; • &nbsp; ⏰ Mon–Sat: 9am–7pm
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // CINEMA CONTENT (same structure, tuned copy)
+    const CINEMA_CONTENT = {
+      "who-we-are": {
+        title: "Who We Are",
+        sub: "A sanctuary for science and serenity",
+        html: `
+          <h3>About SHIIDA MediSpa</h3>
+          <p>SHIIDA is a modern medi-spa combining clinical skincare, therapeutic massage and curated wellness programmes — delivered in a calm, premium environment. We focus on measurable outcomes and a personalised approach.</p>
+
+          <h4>Mission</h4>
+          <p>To empower individuals on their wellness journey through safe, effective and personalised treatments.</p>
+
+          <h4>Vision</h4>
+          <p>To be the region's trusted medi-spa — known for clinical rigour, outstanding hospitality and results that last.</p>
+
+          <h4>The Team</h4>
+          <p>Our close-knit team includes certified therapists, clinical aestheticians and wellness consultants with decades of combined experience. We prioritise ongoing training and maintain small teams to ensure consistency and high-quality care.</p>
+
+          <h4>Our Space</h4>
+          <p>Private treatment rooms, a consultation suite and a sterile equipment workflow. The space is designed around calm — soft lighting, natural textures and carefully chosen soundscapes.</p>
+
+          <h4>Certifications</h4>
+          <ul>
+            <li>Licensed clinical aestheticians & certified massage therapists</li>
+            <li>Infection control & first aid training for all staff</li>
+            <li>Compliance with local health board standards</li>
+          </ul>
+        `
+      },
+
+      "shiida-experience": {
+        title: "The Shiida Experience",
+        sub: "A thoughtfully curated sensory journey",
+        html: `
+          <h3>What to expect</h3>
+          <p>The Shiida Experience begins with a focused consultation, followed by a personalised treatment plan. We blend clinical steps with restorative rituals to deliver both immediate calm and measurable improvements.</p>
+
+          <h4>Arrival & Consultation</h4>
+          <p>We take 10–15 minutes to understand your goals and medical history — this ensures we match the right modality and intensity to your needs.</p>
+
+          <h4>Signature Rituals</h4>
+          <p>Signature sequences combine clinical treatments and restorative touch — e.g., a clinical facial, followed by a restorative massage and guided aftercare.</p>
+
+          <h4>Aftercare</h4>
+          <p>We provide product recommendations and short at-home routines to extend the benefits of each visit.</p>
+        `
+      },
+
+      "guidelines": {
+        title: "Guidelines",
+        sub: "Simple policies to keep visits smooth",
+        html: `
+          <h3>Guest Guidelines</h3>
+          <ul>
+            <li><strong>Arrival:</strong> Please arrive 10–15 minutes before your appointment.</li>
+            <li><strong>Health:</strong> Inform us of allergies, medications, pregnancy or recent procedures.</li>
+            <li><strong>Cancellation:</strong> Please give at least 24 hours' notice for cancellations.</li>
+            <li><strong>Phones:</strong> We encourage silent phones during treatments.</li>
+            <li><strong>Children:</strong> Most treatments are for adults; please check availability for family visits.</li>
+            <li><strong>Gratuities:</strong> Appreciated but optional.</li>
+          </ul>
+
+          <h4>Safety</h4>
+          <p>We follow strict hygiene protocols and prioritise your comfort. Tell your therapist immediately if you experience any discomfort.</p>
+        `
+      }
+    };
+
+    // Elements
+    const cinema = document.getElementById('cinema');
+    const stage = cinema.querySelector('.cinema-stage');
+    const titleEl = document.getElementById('cinema-title');
+    const subEl = document.getElementById('cinema-sub');
+    const bodyEl = document.getElementById('cinema-body');
+    const closeTop = document.querySelector('.cinema-close');
+    const closeBottom = document.getElementById('cinema-close-bottom');
+
+    // robust scroll lock for mobile (works better than overflow:hidden alone)
+    let _scrollY = 0;
+    function lockScroll(){
+      _scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      // apply fixed positioning to body to prevent background scroll on iOS/Android
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${_scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
+    function unlockScroll(){
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      // restore scroll
+      window.scrollTo(0, _scrollY);
+      _scrollY = 0;
+    }
+
+    function updateStageMaxHeight(){
+      // Use visualViewport when available (handles on-screen keyboard)
+      let vh = window.innerHeight || document.documentElement.clientHeight;
+      if(window.visualViewport && window.visualViewport.height) vh = window.visualViewport.height;
+      // pad around stage
+      const pad = 48;
+      if(stage) stage.style.maxHeight = Math.max(240, vh - pad) + 'px';
+
+      // ensure the body (scroll area) fits between header and actions
+      const hero = stage.querySelector('.cinema-hero');
+      const actions = stage.querySelector('.cinema-actions');
+      const heroH = hero ? hero.getBoundingClientRect().height : 0;
+      const actionsH = actions ? actions.getBoundingClientRect().height : 0;
+      const bodyMax = Math.max(160, vh - heroH - actionsH - 48);
+      if(bodyEl) bodyEl.style.maxHeight = bodyMax + 'px';
+    }
+
+    function openCinema(key){
+      const data = CINEMA_CONTENT[key];
+      if(!data) return;
+      titleEl.textContent = data.title;
+      subEl.textContent = data.sub;
+      bodyEl.innerHTML = data.html;
+      cinema.classList.add('open');
+      cinema.setAttribute('aria-hidden','false');
+
+      // lock background scroll (robust)
+      lockScroll();
+
+      // update sizes and focus modal
+      updateStageMaxHeight();
+      try{ history.replaceState(null, '', '#'+key); }catch(e){}
+      setTimeout(()=> {
+        try { stage.focus(); } catch(e){}
+        if(stage) stage.scrollTop = 0;
+        if(bodyEl) bodyEl.scrollTop = 0;
+      }, 80);
+    }
+
+    function closeCinema(){
+      cinema.classList.remove('open');
+      cinema.setAttribute('aria-hidden','true');
+      // restore page scroll
+      unlockScroll();
+      try{ history.replaceState(null, '', window.location.pathname + window.location.search); }catch(e){}
+    }
+
+    // open via buttons
+    document.querySelectorAll('[data-open]').forEach(btn =>{
+      btn.addEventListener('click', (e)=>{
+        const key = btn.dataset.open;
+        openCinema(key);
+      });
+    });
+
+    // open via hero/footer links (data-target) — prevent navigation and open modal instead
+    document.querySelectorAll('[data-target]').forEach(a => {
+      a.addEventListener('click', (e)=>{
+        // prevent the anchor default navigation to avoid page jump when JS handles modal
+        e.preventDefault();
+        const key = a.dataset.target;
+        openCinema(key);
+      });
+    });
+
+    // close handlers
+    if(closeTop) closeTop.addEventListener('click', closeCinema);
+    if(closeBottom) closeBottom.addEventListener('click', closeCinema);
+    cinema.addEventListener('click', (e)=>{ if(e.target === cinema) closeCinema(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeCinema(); });
+
+    // Auto-open on hash (from home dropdown)
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const hash = (window.location.hash || '').replace('#','');
+      if(hash && CINEMA_CONTENT[hash]){
+        setTimeout(()=> openCinema(hash), 180);
+      }
+
+      // Scroll reveal for cards (staggered)
+      const reveals = Array.from(document.querySelectorAll('.reveal'));
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const el = entry.target;
+            const idx = parseInt(el.dataset.revealIndex || '0', 10);
+            el.style.transitionDelay = (idx * 90) + 'ms';
+            el.classList.add('visible');
+            obs.unobserve(el);
+          }
+        });
+      }, {threshold:0.12});
+      reveals.forEach(r => obs.observe(r));
+
+      // Dark mode toggle
+      const darkToggle = document.getElementById('darkToggle');
+      const saved = localStorage.getItem('shiida-dark');
+      if(saved === '1') document.body.classList.add('dark');
+      function updateIcon(){ darkToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙'; }
+      updateIcon();
+      darkToggle.addEventListener('click', ()=>{
+        const now = document.body.classList.toggle('dark');
+        localStorage.setItem('shiida-dark', now ? '1' : '0');
+        updateIcon();
+      });
+
+      // keep stage size current when viewport changes (mobile browsers, keyboards)
+      updateStageMaxHeight();
+      window.addEventListener('resize', updateStageMaxHeight);
+      if(window.visualViewport){
+        window.visualViewport.addEventListener('resize', updateStageMaxHeight);
+      }
+    });
+  </script>
+</body>
+</html>

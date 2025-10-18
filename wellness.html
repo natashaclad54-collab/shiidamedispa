@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wellness & Blog — SHIIDA MediSpa</title>
+  <meta name="description" content="Wellness & Blog — Skin care tips, stress management, seasonal wellness and client testimonials from SHIIDA MediSpa." />
+  <style>
+    /* === Design tokens (matches homepage palette) === */
+    :root{
+      --accent:#7b2cbf;
+      --accent-2:#ff7ab6;
+      --muted:#6b7280;
+      --bg:#f8e6ff;
+      --card:#fbfbfd;
+      --white:#ffffff;
+      --text:#111;
+      --shadow: 0 10px 28px rgba(17,24,39,0.09);
+      --radius:14px;
+      --max-width:1200px;
+      --container-pad:20px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Reset & layout */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;color:var(--text);-webkit-font-smoothing:antialiased}
+    body{background: url('images/background\ 3.png') repeat center center / cover;}
+    a{color:var(--accent);text-decoration:none}
+    img{display:block;max-width:100%;height:auto;border-radius:12px}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 var(--container-pad);box-sizing:border-box}
+
+    /* Header */
+    header.site-header{
+      position:sticky;top:0;z-index:1400;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:var(--white);
+      padding:14px 0;
+      box-shadow:0 6px 22px rgba(11,7,21,0.12);
+    }
+    .site-top{max-width:var(--max-width);margin:0 auto;padding:0 var(--container-pad);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;box-shadow:var(--shadow)}
+    .brand-text h1{margin:0;font-size:18px;line-height:1}
+    .brand-text p{margin:0;font-size:12px;opacity:.95}
+    .nav-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .btn{background:rgba(255,255,255,0.12);color:#fff;padding:8px 12px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+    .btn.secondary{background:rgba(255,255,255,0.20)}
+    .btn.small{padding:6px 10px;font-size:13px;}
+    #darkToggle{background:transparent;border:0;color:#fff;font-size:18px;cursor:pointer;padding:6px;border-radius:8px}
+
+    /* Fresha CTA */
+    .fresha-cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:8px 12px;border-radius:999px;border:0;font-weight:800;box-shadow:var(--shadow);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+
+    /* HERO */
+    .hero{margin:22px auto 6px;max-width:var(--max-width);padding:28px 20px;display:block}
+    .hero-left h2{margin:0;font-size:34px;color:var(--accent);line-height:1.02}
+    .hero-left p.lead{margin:12px 0 0;color:var(--muted);font-size:16px;max-width:58ch}
+    .hero-cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .cta-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:12px 18px;border-radius:999px;border:0;font-weight:800;box-shadow:var(--shadow);text-decoration:none}
+    .cta-ghost{background:var(--bg);border:2px solid rgba(123,44,191,0.12);padding:10px 14px;border-radius:999px;color:var(--accent);font-weight:700}
+
+    /* Sections */
+    main.section-wrap{max-width:var(--max-width);margin:0 auto;padding:8px var(--container-pad) 80px}
+    section.blog-section{margin:28px 0;padding:28px;background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+    section.blog-section h3{margin:0 0 12px;color:var(--accent);font-size:22px}
+    .pill{display:inline-block;background:linear-gradient(90deg,rgba(123,44,191,0.08),rgba(255,122,182,0.06));padding:8px 10px;border-radius:999px;font-weight:700;color:var(--accent);margin-bottom:12px}
+    .callout{background:linear-gradient(90deg,rgba(123,44,191,0.04),rgba(255,122,182,0.02));border-left:4px solid var(--accent);padding:12px;border-radius:8px;margin:14px 0;color:var(--text)}
+    .text{font-size:15px;color:var(--muted);line-height:1.6;min-width:0;word-break:break-word;hyphens:auto}
+
+    /* Row layout */
+    .section-row{display:flex;gap:22px;align-items:flex-start;flex-wrap:nowrap}
+    .section-row .text{flex:1 1 0;min-width:0}
+    .section-row .media{flex:0 0 420px;width:420px;min-width:0}
+    .section-row .media img{width:100%;height:320px;object-fit:cover;border-radius:12px;display:block}
+
+    /* Testimonials */
+    .testimonials-wrap{margin-top:28px;background:linear-gradient(180deg,#fff,#fbf8ff);padding:28px;border-radius:14px;box-shadow:var(--shadow)}
+    .testimonials-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+    .testimonials-head h3{margin:0;color:var(--accent)}
+    .slider{position:relative;overflow:hidden;border-radius:12px}
+    .slider-track{display:flex;transition:transform .8s cubic-bezier(.2,.9,.25,1);will-change:transform}
+    .slide{min-width:100%;box-sizing:border-box;padding:28px;display:flex;justify-content:center}
+    .testimonial-card{max-width:1500px;background:var(--white);border-radius:20px;padding:40px;box-shadow:0 15px 60px rgba(17,24,39,0.06);text-align:left}
+    .testimonial-card p{margin:0 0 10px;font-style:italic;color:var(--muted)}
+    .testimonial-meta{font-weight:800;color:var(--accent);font-size:14px}
+    .slider-controls{display:flex;gap:8px;align-items:center}
+    .ctrl{background:rgba(11,7,21,0.06);border:0;padding:8px;border-radius:8px;cursor:pointer}
+
+    /* Footer */
+    footer.site-footer{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:var(--white);padding:28px 0;margin-top:28px}
+    .footer-inner{max-width:var(--max-width);margin:0 auto;padding:0 var(--container-pad);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .footer-col h4{margin:0 0 10px;font-size:16px;text-transform:uppercase;letter-spacing:.6px}
+    .footer-col p,.footer-col a{margin:6px 0;color:rgba(255,255,255,0.95);text-decoration:none}
+    .social-grid{display:flex;gap:12px;align-items:center}
+    .social-grid a{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.04);color:inherit;text-decoration:none}
+    .social-grid .emoji{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);font-size:18px}
+    .social-grid .social-label{font-weight:700}
+    .copyright{padding-top:14px;text-align:center;color:rgba(255,255,255,0.92);font-weight:600}
+
+    /* Reveal animation */
+    .reveal{opacity:0;transform:translateY(16px) scale(.996);transition:opacity .66s,transform .66s}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* Mobile tweaks */
+    @media (max-width:1060px){
+      .section-row .media{flex:0 0 320px;width:320px}
+      .hero-left h2{font-size:28px}
+      .section-row .media img{height:240px}
+    }
+    @media (max-width:820px){
+      .site-top{padding:0 12px}
+      .section-row{flex-direction:column}
+      .section-row .media{order:-1;width:100%;flex:0 0 auto}
+      .section-row .media img{height:180px}
+      .footer-inner{grid-template-columns:1fr}
+      .hero-left h2{font-size:22px}
+      .hero-left p.lead{font-size:15px}
+      .fresha-cta{padding:8px 10px;font-size:14px}
+      .social-grid .emoji{width:32px;height:32px;font-size:16px}
+    }
+
+    /* ========== DARK MODE FIXES ========== */
+    body.dark{background:#0d0d12;color:#e6eef2}
+    body.dark a{color:#ffb4ff}
+
+    body.dark header.site-header{background:linear-gradient(90deg,#1a0824,#2a0f44);color:#e6eef2}
+    body.dark footer.site-footer{background:linear-gradient(90deg,#0f0217,#2a0f44);color:#e6eef2}
+    body.dark .footer-col a,body.dark .footer-col p{color:rgba(230,238,242,0.92)}
+
+    body.dark section.blog-section{background:#141422;color:#e6eef2;border:1px solid rgba(255,255,255,0.08)}
+    body.dark section.blog-section h3{color:#ffb4ff}
+
+    body.dark .hero-left h2{color:#ffb4ff}
+    body.dark .hero-left p.lead{color:#cbd5e1}
+    body.dark .cta-primary{background:linear-gradient(90deg,#5d1c90,#a83289)}
+    body.dark .cta-ghost{border-color:rgba(255,255,255,0.25);color:#ffb4ff}
+
+    body.dark .pill{background:linear-gradient(90deg,rgba(255,180,255,0.1),rgba(255,255,255,0.06));color:#ffb4ff}
+    body.dark .callout{background:linear-gradient(90deg,rgba(255,255,255,0.05),rgba(255,255,255,0.03));border-left:4px solid #ffb4ff;color:#e6eef2}
+
+    body.dark .testimonials-wrap{background:linear-gradient(180deg,#0f0217,#2a0f44);color: #e6eef2}
+    body.dark .testimonial-card{background:linear-gradient(180deg,#141422,#0f0f18);color:#e6eef2;border:1px solid rgba(255,255,255,0.06)}
+
+    body.dark .ctrl{background:rgba(255,255,255,0.08);color:#fff}
+    body.dark .text,body.dark ul.text li{color:#cbd5e1}
+
+    .social-row{display:flex;gap:10px;margin-top:10px}
+    .social-btn{
+      width:44px;height:44px;border-radius:999px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;
+      background:#fff;border:0;padding:0;box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    }
+    .social-btn img{width:100%;height:100%;object-fit:cover;display:block}
+
+  </style>
+</head>
+
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="site-top container">
+      <div class="brand" aria-hidden="false">
+        <div class="logo"><img src="images/logo.jpg" alt="S" style="width:36px;height:36px;border-radius:8px;object-fit:cover"/></div>
+        <div class="brand-text">
+          <h1>SHIIDA MediSpa</h1>
+          <p class="muted">Wellness & Blog</p>
+        </div>
+      </div>
+
+      <div class="nav-actions" role="navigation" aria-label="Page navigation">
+        <!-- Fresha Book CTA -->
+        <a class="fresha-cta" href="https://www.fresha.com/book-now/shiida-medi-spa-eu3f1t04/all-offer?share=true&pId=2515904" target="_blank" rel="noopener noreferrer">Book Now</a>
+
+        <button id="darkToggle" title="Toggle dark mode" aria-pressed="false">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section-wrap" id="main">
+    <!-- HERO -->
+    <div class="hero container reveal">
+      <div class="hero-left">
+        <h2 style="color: #fff;">Wellness, Skin Care & Practical Self-Care</h2>
+        <p style="color: #fff;">Practical, evidence-aware tips for skin health and resilience — written for real life. Read, save, and use the simple routines and seasonal adjustments to keep skin radiant and wellbeing steady.</p>
+
+        <div class="hero-cta">
+          <a class="cta-primary" href="https://www.fresha.com/book-now/shiida-medi-spa-eu3f1t04/all-offer?share=true&pId=2515904" target="_blank" rel="noopener noreferrer">Book Now</a>
+          <a class="cta-ghost" href="#testimonial">See Client Reviews</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKIN CARE TIPS & TRENDS -->
+    <section class="blog-section reveal" id="tips" aria-labelledby="skin-title">
+      <div class="section-row">
+        <div class="text">
+          <h3 id="tips-title">Skin Care Tips & Trends</h3>
+          <div class="pill">Practical • Clean • Sustainable</div>
+          <p>
+            Healthy skin is achieved through consistent, simple routines tuned to your needs. Current, responsible trends emphasize:
+          </p>
+
+          <ul class="text tip-list">
+            <li><strong>Skinimalism</strong> — fewer, quality products that multi-task (cleanser → antioxidant → SPF).</li>
+            <li><strong>Ingredient focus</strong> — vitamin C (brightening), niacinamide (barrier & tone), hyaluronic acid (hydration), SPF every day.</li>
+            <li><strong>Personalised regimens</strong> — a short consultation + targeted actives is better than long lists of products.</li>
+          </ul>
+
+          <div class="callout">Daily routine (simple): <strong>cleanse → treat (actives) → hydrate → protect (SPF)</strong>. For evenings: add gentle exfoliation 1–2x weekly and a richer moisturizer when needed.</div>
+
+          <h4 style="margin-top:12px">Evidence-based tips</h4>
+          <ul class="text tip-list">
+            <li>Use chemical sunscreen SPF30+ daily; reapply during long sun exposure.</li>
+            <li>Introduce one active at a time and patch test (retinoids, acids, Vitamin C).</li>
+            <li>Prioritise sleep, hydration and balanced diet — they affect skin barrier & healing.</li>
+          </ul>
+        </div>
+
+        <div class="media" aria-hidden="false">
+          <img src="images/face33.jpg" alt="skin care image">
+        </div>
+      </div>
+    </section>
+
+    <!-- STRESS MANAGEMENT & SELF-CARE -->
+    <section class="blog-section reveal" id="stress" aria-labelledby="stress-title">
+      <div class="section-row">
+        <div class="text">
+          <h3 id="stress-title">Stress Management & Self-Care</h3>
+          <p>
+            Chronic stress affects sleep, immunity and skin. Managing stress isn't a luxury — it's preventative medicine. Effective strategies combine short daily rituals with broader lifestyle changes:
+          </p>
+
+          <ul class="text tip-list">
+            <li><strong>Micro-meditations:</strong> 3–5 minutes of focused breathing (box breathing or 4-4-4) to interrupt stress cycles.</li>
+            <li><strong>Movement:</strong> gentle yoga, walking outdoors or mobility work to reduce tension and support circulation.</li>
+            <li><strong>Sleep hygiene:</strong> consistent bedtime routine, low exposure to blue light before sleep, dark, cool bedroom.</li>
+          </ul>
+
+          <div class="callout">Quick ritual: 5-minute breathing + 10-minute calming stretch + a warming herbal tea — repeat daily for 2 weeks and notice improved sleep & mood.</div>
+
+          <h4 style="margin-top:12px">Self-care that scales</h4>
+          <ul class="text tip-list">
+            <li>Short sessions (10–20 mins) are more sustainable than a once-a-week long ritual.</li>
+            <li>Use sensory anchors: scent (lavender), touch (dry brushing), sound (gentle music) to create predictable calm cues.</li>
+          </ul>
+        </div>
+
+        <div class="media">
+          <img src="images/wellnes.jpg" alt="Stress">
+        </div>
+      </div>
+    </section>
+
+    <!-- SEASONAL WELLNESS & BEAUTY -->
+    <section class="blog-section reveal" id="beauty" aria-labelledby="beauty-title">
+      <div class="section-row" style="align-items:stretch">
+        <div class="text">
+          <h3 id="beauty-title">Seasonal Wellness & Beauty</h3>
+          <p class="text">
+            Seasons change skin needs. Adjusting routines prevents common seasonal issues:
+          </p>
+
+          <ul class="text tip-list">
+            <li><strong>Summer:</strong> lightweight gels/fluids, high-SPF sunscreen, antioxidants to counter photo-ageing.</li>
+            <li><strong>Autumn:</strong> gentle exfoliation and introduce nourishing oils as humidity drops.</li>
+            <li><strong>Winter:</strong> barrier repair — richer creams, occlusives at night, humidifier for dry indoor air.</li>
+            <li><strong>Spring:</strong> refresh and repair — vitamin C serums and gentle brightening after winter recovery.</li>
+          </ul>
+
+          <div class="callout">Seasonal planning: before the season shift, swap one product (e.g. lighter → richer moisturizer) rather than overhauling everything.</div>
+        </div>
+
+        <div class="media">
+          <img src="images/wel.jpg" alt="seasonal wellness ">
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-wrap reveal" id="testimonial" aria-labelledby="testimonial-title">
+      <div class="testimonials-head container">
+        <h3 id="testimonial-title">What Our Clients Say — Real Reviews</h3>
+        <div class="slider-controls" style="margin-left:auto">
+          <button class="ctrl" id="prev" title="Previous testimonial" aria-label="Previous testimonial">◀</button>
+          <button class="ctrl" id="next" title="Next testimonial" aria-label="Next testimonial">▶</button>
+        </div>
+      </div>
+
+      <div class="slider container" aria-roledescription="carousel" aria-label="Client testimonials">
+        <div class="slider-track reveal" id="sliderTrack" style="transform:translateX(0%)">
+          <!-- 6 testimonials -->
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="1 of 6">
+            <div class="testimonial-card">
+              <p>"I always leave SHIIDA feeling completely restored. My skin looks brighter after just a couple of treatments." </p>
+              <div class="testimonial-meta">— Akua, regular client</div>
+            </div>
+          </div>
+
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 6">
+            <div class="testimonial-card">
+              <p>"Their approach to stress management helped me sleep better and my skin cleared up. Highly recommend."</p>
+              <div class="testimonial-meta">— Sarah</div>
+            </div>
+          </div>
+
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 6">
+            <div class="testimonial-card">
+              <p>"Professional clinicians, friendly staff and visible results — the Shiida experience is exceptional."</p>
+              <div class="testimonial-meta">— Nana</div>
+            </div>
+          </div>
+
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="4 of 6">
+            <div class="testimonial-card">
+              <p>"Booked for a facial and left with a clear aftercare plan. The follow-up was thoughtful and helpful."</p>
+              <div class="testimonial-meta">— Efua</div>
+            </div>
+          </div>
+
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="5 of 6">
+            <div class="testimonial-card">
+              <p>"Their seasonal packages are exactly what my skin needs. Great value and excellent technique."</p>
+              <div class="testimonial-meta">— Adwoa</div>
+            </div>
+          </div>
+
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="6 of 6">
+            <div class="testimonial-card">
+              <p>"Impeccable hygiene, calming space and therapists who listen — my go-to medi-spa in Accra."</p>
+              <div class="testimonial-meta">— Kwame</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner container">
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a><br>
+        <a href="services.html">Services</a><br>
+        <a href="wellness.html">Wellness & Blog</a><br>
+        <a href="about.html">About Us</a>
+      </div>
+
+      <div style="margin-top:10px; border-radius:10px; overflow:hidden;">
+        <iframe
+          src="https://www.google.com/maps?q=Shiida+MediSpa+Accra&output=embed"
+          width="100%"
+          height="180"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div class="footer-col">
+        <h4>Working Hours</h4>
+        <p>Tuesday – Saturday: 8:00 AM — 8:00 PM</p>
+        <p>Sun: Strictly by Appointment</p>
+      </div>
+        <div class="social-row" aria-label="Social links">
+          <a class="social-btn" href="https://instagram.com/shiidamedispa" aria-label="Instagram">
+            <img src="images/instagram.jpg" alt="Instagram icon">
+          </a>
+          <a class="social-btn" href="https://facebook.com/shiidamedispa" aria-label="Facebook">
+            <img src="images/facebook.jpg" alt="Facebook icon">
+          </a>
+          <a class="social-btn" href="https://wa.me/233552870027" aria-label="WhatsApp">
+            <img src="images/whatsap.jpg" alt="WhatsApp icon">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright container" style="margin-top:18px">
+      © SHIIDA MEDISPA — All rights reserved — 2nd Old Fulgrip Road, Kanda — Phone: <a href="tel:+233552870027" style="color:inherit">+233 55 287 0027</a>
+    </div>
+  </footer>
+
+  <script>
+      // ----- Dark mode toggle -----
+  (function () {
+    const btn = document.getElementById("darkToggle");
+    const body = document.body;
+    const saved = localStorage.getItem("shiida-dark");
+    if (saved === "1") body.classList.add("dark");
+
+    function updateIcon() {
+      btn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+    }
+    updateIcon();
+
+    btn.addEventListener("click", () => {
+      const now = body.classList.toggle("dark");
+      localStorage.setItem("shiida-dark", now ? "1" : "0");
+      updateIcon();
+    });
+  })();
+
+
+    // TESTIMONIALS SLIDER: autoplay + keyboard + swipe + pause on hover/focus
+    (function(){
+      const track = document.getElementById('sliderTrack');
+      if(!track) return;
+      const slides = Array.from(track.children);
+      const total = slides.length;
+      const nextBtn = document.getElementById('next');
+      const prevBtn = document.getElementById('prev');
+      let index = 0;
+      let autoplayTimer = null;
+      const INTERVAL = 4200;
+      const TRANSITION = 800;
+      const slider = track.parentElement;
+
+      function setPosition(instant){
+        if(instant) track.style.transition = 'none';
+        else track.style.transition = `transform ${TRANSITION}ms cubic-bezier(.2,.9,.25,1)`;
+        // translate by percentage (works because each .slide is 100% width of container)
+        track.style.transform = `translateX(-${index * 100}%)`;
+        // restore transition if it was temporarily disabled
+        if(instant) {
+          // allow browser to paint then restore transition
+          requestAnimationFrame(()=> {
+            track.style.transition = `transform ${TRANSITION}ms cubic-bezier(.2,.9,.25,1)`;
+          });
+        }
+      }
+
+      function next(){
+        index = (index + 1) % total;
+        setPosition();
+      }
+      function prev(){
+        index = (index - 1 + total) % total;
+        setPosition();
+      }
+
+      if(nextBtn) nextBtn.addEventListener('click', ()=> { pause(); next(); });
+      if(prevBtn) prevBtn.addEventListener('click', ()=> { pause(); prev(); });
+
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowRight'){ pause(); next(); }
+        if(e.key === 'ArrowLeft'){ pause(); prev(); }
+      });
+
+      function play(){
+        if(autoplayTimer) clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(next, INTERVAL);
+      }
+      function pause(){
+        if(autoplayTimer) clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+
+      // pause/resume on hover + focus
+      if(slider){
+        slider.addEventListener('mouseenter', pause);
+        slider.addEventListener('mouseleave', ()=> { if(!autoplayTimer) play(); });
+        slider.addEventListener('focusin', pause);
+        slider.addEventListener('focusout', ()=> { if(!autoplayTimer) play(); });
+      }
+
+      // pointer (swipe) support
+      let pointerDown = false, startX = 0, deltaX = 0;
+      if(slider){
+        slider.addEventListener('pointerdown', (e)=>{
+          pointerDown = true;
+          startX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+          deltaX = 0;
+          track.style.transition = 'none';
+          // capture pointer
+          if(e.pointerId) slider.setPointerCapture && slider.setPointerCapture(e.pointerId);
+        }, {passive:true});
+
+        window.addEventListener('pointermove', (e)=>{
+          if(!pointerDown) return;
+          const x = e.clientX || 0;
+          deltaX = x - startX;
+          // show drag with small resistance
+          track.style.transform = `translateX(calc(-${index * 100}% + ${deltaX}px))`;
+        }, {passive:true});
+
+        window.addEventListener('pointerup', ()=>{
+          if(!pointerDown) return;
+          pointerDown = false;
+          track.style.transition = `transform ${TRANSITION}ms cubic-bezier(.2,.9,.25,1)`;
+          const threshold = Math.min(120, window.innerWidth * 0.08); // scaled threshold
+          if(Math.abs(deltaX) > threshold){
+            if(deltaX < 0) next(); else prev();
+            pause();
+          } else {
+            setPosition();
+          }
+          deltaX = 0;
+        });
+      }
+
+      // respect reduced-motion
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced){
+        track.style.transition = 'none';
+      } else {
+        play();
+      }
+
+      // ensure correct start position (no visual jump)
+      setPosition(true);
+      // also reposition on resize (keeps transform accurate)
+      window.addEventListener('resize', ()=> setPosition(true));
+    })();
+
+    // REVEAL ON SCROLL (staggered) - respects prefers-reduced-motion
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = Array.from(document.querySelectorAll('.reveal'));
+      if(!reveals.length) return;
+
+      // small progressive delay so the page feels alive
+      reveals.forEach((el, i) => el.style.transitionDelay = (i * 70) + 'ms');
+
+      if(prefersReduced){
+        reveals.forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      const obs = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      reveals.forEach(el => obs.observe(el));
+    })();
+  </script>
+</body>
+</html>
