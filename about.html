@@ -44,7 +44,7 @@
     .hero h1{margin:0;font-size:32px;color:var(--accent);font-weight:900}
     .hero p{margin:8px 0 0;color:var(--muted)}
     .hero .nav-links{display:flex;gap:10px;margin-top:12px}
-    .pill{background:linear-gradient(90deg,rgba(123,44,191,0.08),rgba(255,122,182,0.06));padding:8px 12px;border-radius:999px;font-weight:700;color:var(--accent);text-decoration:none}
+    .pill{background:linear-gradient(90deg,rgba(123,44,191,0.08),rgba(255,122,182,0.06));padding:8px 12px;border-radius:999px;font-weight:700;color:var(--card);text-decoration:none}
 
     /* layout: single column cards that fill container */
     .container{max-width:1200px;margin:10px auto;padding:0 20px}
@@ -142,8 +142,8 @@
 
   <div class="hero">
     <div class="left">
-      <h1>About SHIIDA</h1>
-      <p class="muted">Learn about who we are — tap any of the sections below to open a cinematic write-up with full details.</p>
+      <h1 style="color: #ffffff;">About SHIIDA</h1>
+      <p style="color: #ffffff;">Learn about who we are — tap any of the sections below to open a cinematic write-up with full details.</p>
       <div class="nav-links">
         <!-- normalized links/data-targets so modal opens consistently -->
         <a class="pill" href="about.html#who-we-are" data-target="who-we-are">Who We Are</a>
@@ -151,7 +151,6 @@
         <a class="pill" href="about.html#guidelines" data-target="guidelines">Guidelines</a>
       </div>
     </div>
-    <div style="width:220px;height:120px;border-radius:14px;background:linear-gradient(135deg,rgba(123,44,191,0.12),rgba(255,122,182,0.08));box-shadow:var(--shadow)"></div>
   </div>
 
   <main class="container">
