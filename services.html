@@ -132,7 +132,7 @@
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
     input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:14px}
-    .submit-btn{display:block;margin:12px auto 0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:12px 18px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
+    .freshaBookBtn{display:block;margin:12px auto 0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:12px 18px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
     .muted{color:var(--muted)}
 
     /* ===== Scroll reveal classes ===== */
@@ -861,7 +861,7 @@
             </div>
 
             <div>
-              <button class="submit-btn" type="submit">Send Booking</button>
+              <button id="freshaBookBtn" class="freshaBookBtn" type="button">Send Booking</button>
             </div>
 
             <div id="bookingMsg" class="muted" style="text-align:center;margin-top:6px"></div>
@@ -921,7 +921,6 @@ document.addEventListener("DOMContentLoaded", function () {
     reveals.forEach((r) => obs.observe(r));
   })();
 
-  // ----- Booking button scroll & prefill -----
   (function () {
     function scrollToBooking(group) {
       const bfGroup = document.getElementById("bf_group");
@@ -937,46 +936,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    document.querySelectorAll(".book-now").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        scrollToBooking(btn.dataset.group || "");
-      });
-    });
-  })();
+    /* ⭐ FRESHA BUTTON — OPEN WEBSITE ONLY ⭐ */
+const freshaBtn = document.getElementById('freshaBookBtn');
 
-  // ----- Booking form fallback -----
-  window.handleBooking = function (e) {
-    e.preventDefault();
-    const f = e.target;
-    const form = new FormData(f);
-    const name = form.get("name") || "";
-    const phone = form.get("phone") || "";
-    const serviceGroup = form.get("serviceGroup") || "";
-    const date = form.get("date") || "";
-    if (!name || !phone || !serviceGroup || !date) {
-      document.getElementById("bookingMsg").textContent =
-        "Please fill name, phone, service group and preferred date.";
-      return false;
-    }
-    const subject = encodeURIComponent("Booking: " + serviceGroup + " — " + name);
-    const body = encodeURIComponent(
-      "Name: " + name +
-      "\nService group: " + serviceGroup +
-      "\nPreferred date/time: " + date + " " + (form.get("time") || "") +
-      "\nPhone: " + phone +
-      "\nEmail: " + (form.get("email") || "") +
-      "\n\nBrief:\n" + (form.get("brief") || "")
-    );
-    const mail =
-      "mailto:shiidamedispa@gmail.com?subject=" + subject + "&body=" + body;
-    window.location.href = mail;
-    document.getElementById(
-      "bookingMsg"
-    ).textContent =
-      "Opening your email client to send the booking — we'll also follow up on WhatsApp.";
-    f.reset && f.reset();
-    return false;
-  };
+if (freshaBtn) {
+  freshaBtn.addEventListener('click', (e) => {
+    e.preventDefault();   // prevents form or other handlers
+    e.stopPropagation();  // prevents conflicts
+    window.location.href = "https://www.fresha.com/book-now/shiida-medi-spa-eu3f1t04/all-offer?share=true&pId=2515904";
+  });
+}
+
+})();
+
 
   // ----- Dynamic per-service modals (added) -----
   (function(){
